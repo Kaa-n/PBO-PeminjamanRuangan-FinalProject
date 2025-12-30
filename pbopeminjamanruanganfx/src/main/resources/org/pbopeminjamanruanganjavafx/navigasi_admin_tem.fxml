@@ -7,7 +7,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -15,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #F8F9FA;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pbopeminjamanruanganjavafx.NavigasiTestController">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #F8F9FA;" stylesheets="@style.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pbopeminjamanruanganjavafx.NavigasiTestController">
    <content>
       <VBox prefHeight="700.0" prefWidth="1200.0">
          <children>
@@ -128,9 +127,13 @@
                   </HBox>
                </children>
             </HBox>
-            <VBox prefHeight="533.0" prefWidth="1182.0">
+            <VBox prefHeight="648.0" prefWidth="1197.0">
                <children>
-                  <FlowPane prefHeight="200.0" prefWidth="200.0" />
+                  <ScrollPane fitToWidth="true" prefHeight="662.0" prefWidth="1197.0" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox prefHeight="720.0" prefWidth="1181.0" />
+                     </content>
+                  </ScrollPane>
                </children>
             </VBox>
          </children>
