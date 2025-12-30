@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,7 +19,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("navigasi_admin_tem"), 1200, 700);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        Image icon = new Image(getClass().getResourceAsStream("/images/Container (2).png")); 
+        stage.getIcons().add(icon);
+        stage.setTitle("SIPIRANG FMIPA");
         stage.setScene(scene);
         stage.show();
     }
