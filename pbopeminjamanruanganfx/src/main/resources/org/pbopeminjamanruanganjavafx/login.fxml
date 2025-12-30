@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="325.0" pickOnBounds="true">
          <image>
-            <Image url="@../../../../coding/Project/PBO/PBO-PeminjamanRuangan-FinalProject/pbopeminjamanruanganfx/src/main/resources/images/17070526306916810509641465154601.jpg" />
+            <Image url="@../../images/17070526306916810509641465154601.jpg" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="374.0" spacing="20.0">
