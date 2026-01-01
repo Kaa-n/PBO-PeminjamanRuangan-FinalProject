@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxWidth="344.0" prefHeight="579.0" prefWidth="340.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 5);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pbopeminjamanruanganjavafx.ItemRuanganController">
+   <children>
+      <StackPane fx:id="imageContainer" prefHeight="213.0" prefWidth="340.0">
+         <children>
+            <Pane focusTraversable="true" maxHeight="226.0" prefHeight="213.0" prefWidth="340.0">
+               <children>
+                  <ImageView fx:id="imgFotoRuangan" fitHeight="213.0" fitWidth="341.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../images/RoomsPage.png" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+      <VBox maxWidth="344.0" prefHeight="283.0" prefWidth="340.0" spacing="8.0" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox spacing="16.0">
+               <children>
+                  <Label fx:id="lblNamaRuangan" prefHeight="17.0" text="Lab Komputer 1" />
+                  <Label fx:id="lblDeskripsi" alignment="TOP_LEFT" maxHeight="72.0" maxWidth="-Infinity" prefHeight="72.0" prefWidth="276.0" text="Laboratorium komputer dengan spesifikasi tinggi untuk praktikum dan " textFill="#676767" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblKapasitas" text="Kapasitas: 40 orang" textFill="#676767">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblStatus" text="Status: Tersedia" textFill="#676767">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label text="Fasilitas:">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets right="32.0" />
+               </padding>
+            </VBox>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="71.0" prefHeight="54.0" prefWidth="312.0" style="-fx-background-color: transparent; -fx-control-inner-background: transparent;" vbarPolicy="NEVER">
+               <content>
+                  <FlowPane fx:id="flowPaneFasilitas" hgap="8.0" maxHeight="59.0" maxWidth="280.0" prefHeight="50.0" prefWidth="280.0" style="-fx-background-color: white;" vgap="8.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="22.0" style="-fx-background-color: #F3F3F3; -fx-background-radius: 8;" text="Proyektor" textFill="#676767">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="22.0" style="-fx-background-color: #F3F3F3; -fx-background-radius: 8;" text="Proyektor" textFill="#676767">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="77.0" layoutY="10.0" prefHeight="22.0" style="-fx-background-color: #F3F3F3; -fx-background-radius: 8;" text="Proyektor" textFill="#676767">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="145.0" layoutY="10.0" prefHeight="22.0" style="-fx-background-color: #F3F3F3; -fx-background-radius: 8;" text="Proyektor" textFill="#676767">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="224.0" layoutY="10.0" prefHeight="22.0" style="-fx-background-color: #F3F3F3; -fx-background-radius: 8;" text="Proyektor" textFill="#676767">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="153.0" layoutY="40.0" prefHeight="22.0" style="-fx-background-color: #F3F3F3; -fx-background-radius: 8;" text="Proyektor" textFill="#676767">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="153.0" layoutY="40.0" prefHeight="22.0" style="-fx-background-color: #F3F3F3; -fx-background-radius: 8;" text="Proyektor" textFill="#676767">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="2.0" right="32.0" />
+                     </padding>
+                  </FlowPane>
+               </content>
+               <padding>
+                  <Insets right="32.0" />
+               </padding>
+            </ScrollPane>
+         </children>
+         <padding>
+            <Insets bottom="8.0" left="32.0" top="16.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="TOP_RIGHT" maxHeight="247.0" prefHeight="12.0" prefWidth="340.0" spacing="8.0" VBox.vgrow="ALWAYS">
+         <padding>
+            <Insets bottom="32.0" left="32.0" />
+         </padding>
+         <children>
+            <VBox>
+               <children>
+                  <Button fx:id="btnPesan" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" text="Detail dan Peminjaman" />
+               </children>
+               <padding>
+                  <Insets right="32.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>
