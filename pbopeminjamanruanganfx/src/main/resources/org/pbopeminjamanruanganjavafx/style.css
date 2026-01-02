@@ -77,3 +77,42 @@
     -fx-scale-y:
      0.98;
 }
+
+/* =================================================================
+   3. STYLE TOMBOL Kelola Ruangan & Item Kelola Ruangan (Admin)
+   ================================================================= */
+
+.btn-tambah-ruangan {
+    -fx-background-color: #4F4F4F; /* abu-abu */
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+/*Kondisi hovernya*/
+.btn-tambah-ruangan:hover {
+    -fx-background-color: #2F2D2D; /* abu-abu lebih gelap */
+}
+
+/*Kondisi saat diklik*/
+.btn-tambah-ruangan:pressed {
+    -fx-scale-x: 0.97;/* Efek tombol mengecil sedikit seolah ditekan */
+    -fx-scale-y: 0.97;
+}
+
+.btn-hapus {
+    -fx-background-color: #E60000; /* merah */
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.btn-edit {
+    -fx-background-color: #4F4F4F; /* abu-abu */
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
