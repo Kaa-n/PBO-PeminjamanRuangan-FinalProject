@@ -1,7 +1,7 @@
 /* =================================================================
    1. STYLE NAVIGASI (BERANDA, RUANGAN, STATUS, KONTAK, AKUN)
    ================================================================= */
-
+ 
 /* Kondisi Normal */
 .nav-link {
     -fx-background-color: transparent;
@@ -52,4 +52,28 @@
     -fx-background-color: #990000; /* Merah maroon/sangat gelap */
     -fx-scale-x: 0.98; /* Efek tombol mengecil sedikit seolah ditekan */
     -fx-scale-y: 0.98;
+}
+
+/*Style setuju ruangan*/
+.btn-setuju {
+    -fx-background-color: #139659; /* Hijau */
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 14px;    
+}
+
+/*Kondisi hovernya*/
+.btn-setuju:hover {
+    -fx-background-color: #0e643c; /* Hijau lebih gelap */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1); /* Ada bayangan sedikit */
+}
+
+/*Kondisi saat diklik*/
+.btn-setuju:pressed {
+    -fx-background-color: #0b3c25; /* Hijau maroon/sangat gelap */
+    -fx-scale-x: 0.98; /* Efek tombol mengecil sedikit seolah ditekan */
+    -fx-scale-y:
+     0.98;
 }
