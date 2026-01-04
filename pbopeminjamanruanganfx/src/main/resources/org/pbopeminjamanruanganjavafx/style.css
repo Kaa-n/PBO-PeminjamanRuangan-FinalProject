@@ -117,6 +117,15 @@
     -fx-font-size: 14px;
 }
 
+/* ========================
+   4. STYLE TOMBOL Profile
+   ======================== */
+
+.btn-simpan {
+    -fx-background-color: #139659; /* Hijau */
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
 
 .fltxt-form {
     -fx-background-color: #ffffff;
