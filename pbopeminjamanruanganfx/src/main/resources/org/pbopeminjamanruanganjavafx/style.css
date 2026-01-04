@@ -1,7 +1,7 @@
 /* =================================================================
    1. STYLE NAVIGASI (BERANDA, RUANGAN, STATUS, KONTAK, AKUN)
    ================================================================= */
-
+ 
 /* Kondisi Normal */
 .nav-link {
     -fx-background-color: transparent;
@@ -126,6 +126,13 @@
     -fx-text-fill: white;
     -fx-background-radius: 12px;
     -fx-cursor: hand;
+
+.fltxt-form {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dbdbdb;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #333333;
     -fx-font-family: "Century Gothic";
     -fx-font-size: 14px;
 }
