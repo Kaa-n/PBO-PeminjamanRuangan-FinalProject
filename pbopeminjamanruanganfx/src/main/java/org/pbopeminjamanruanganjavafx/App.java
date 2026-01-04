@@ -19,13 +19,15 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("login"), 1200, 700);
+        scene = new Scene(loadFXML("login"));
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         Image icon = new Image(getClass().getResourceAsStream("/images/Container (2).png")); 
         stage.getIcons().add(icon);
         stage.setTitle("SIPIRANG FMIPA");
         stage.setScene(scene);
         stage.show();
+
+        stage.setResizable(false); // Menonaktifkan fitur resize
     }
 
     static void setRoot(String fxml) throws IOException {

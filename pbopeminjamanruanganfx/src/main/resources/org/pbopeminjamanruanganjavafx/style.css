@@ -127,3 +127,31 @@
     -fx-font-family: "Century Gothic";
     -fx-font-size: 14px;
 }
+
+.fltxt-login {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dbdbdb;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 10px;
+}
+
+/* lupa password */
+.hyperlink-lupapassword {
+    -fx-text-fill: #848484; /* Warna biru */
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.hyperlink-lupapassword:hover {
+    -fx-text-fill: #555555; /* Warna biru lebih gelap saat hover */
+}
+.hyperlink-lupapassword:pressed {
+    -fx-text-fill: #333333; /* Warna biru paling gelap saat ditekan */
+}
