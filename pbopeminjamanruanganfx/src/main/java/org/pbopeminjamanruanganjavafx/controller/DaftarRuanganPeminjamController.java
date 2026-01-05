@@ -51,7 +51,7 @@ public class DaftarRuanganPeminjamController {
     @FXML
     void btnKeluar(ActionEvent event) {
         try {
-            pindahLogin(event, "login", "SIPIRANG FMIPA");
+            pindahLogin(event, "login.fxml", "LOGIN SIPIRANG");
         } catch (IOException e) {
             e.printStackTrace();
         }  

@@ -29,6 +29,7 @@ public class DashboardPeminjamController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void btnRuangan(ActionEvent event) {
         try {
@@ -39,7 +40,7 @@ public class DashboardPeminjamController {
     }
 
     @FXML
-    private void btnStatus(ActionEvent event) {
+    void btnStatus(ActionEvent event) {
         try {
             App.setRoot("user_detail_peminjaman");
         } catch (IOException e) {
@@ -49,7 +50,7 @@ public class DashboardPeminjamController {
 
     @FXML
     private void btnKeluar(ActionEvent event) {
-       try {
+        try {
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
@@ -57,7 +58,7 @@ public class DashboardPeminjamController {
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Login");
+            stage.setTitle("LOGIN SIPIRANG");
 
             // Kembalikan kemampuan resize window untuk dashboard
             stage.setResizable(false);

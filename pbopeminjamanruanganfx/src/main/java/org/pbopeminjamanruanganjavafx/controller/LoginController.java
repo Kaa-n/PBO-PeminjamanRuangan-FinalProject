@@ -69,6 +69,7 @@ public class LoginController {
         Parent root = fxmlLoader.load();
 
         Scene scene = new Scene(root);
+        App.setScene(scene);
         stage.setScene(scene);
         stage.setTitle(title);
         

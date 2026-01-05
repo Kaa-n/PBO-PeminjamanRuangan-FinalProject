@@ -76,7 +76,7 @@ public class DetailPeminjamanController {
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Login");
+            stage.setTitle("LOGIN SIPIRANG");
 
             // Kembalikan kemampuan resize window untuk dashboard
             stage.setResizable(false);
@@ -98,6 +98,7 @@ public class DetailPeminjamanController {
 
     @FXML
     void btnSetuju(ActionEvent event) {
+        
 
     }
 

@@ -67,7 +67,7 @@
                               <Insets bottom="1.0" />
                            </padding>
                         </Button>
-                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnKelolaRuangan" prefHeight="40.0" prefWidth="139.0" styleClass="nav-link" text="Kelola Ruangan">
+                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnKelolaRuangan" prefHeight="40.0" prefWidth="128.0" styleClass="nav-link" text="Kelola Ruangan">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>
@@ -75,7 +75,7 @@
                               <Insets bottom="1.0" />
                            </padding>
                         </Button>
-                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnKelolaPeminjaman" prefHeight="40.0" prefWidth="158.0" styleClass="nav-link" text="Kelola Peminjaman">
+                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnKelolaPeminjaman" prefHeight="40.0" prefWidth="152.0" styleClass="nav-link" text="Kelola Peminjaman">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>
@@ -83,7 +83,7 @@
                               <Insets bottom="1.0" />
                            </padding>
                         </Button>
-                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnKelolaUser" prefHeight="65.0" prefWidth="88.0" styleClass="nav-link" text="Kelola User">
+                        <Button layoutX="114.0" layoutY="18.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnKelolaUser" prefHeight="40.0" prefWidth="96.0" styleClass="nav-link" text="Kelola User">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>
