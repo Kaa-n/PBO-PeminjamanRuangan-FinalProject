@@ -54,7 +54,7 @@ public class KelolaRuanganController {
     @FXML
     void btnKeluar(ActionEvent event) {
         try {
-            pindahLogin(event, "login.fxml", "LOGIN");
+            pindahLogin(event, "login.fxml", "LOGIN SIPIRANG");
         }catch (Exception e) {
             e.printStackTrace();
         }

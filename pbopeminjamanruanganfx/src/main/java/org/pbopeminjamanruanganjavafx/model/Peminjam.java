@@ -13,6 +13,6 @@ public class Peminjam extends User {
 
     @Override
     public String getDashboardTitle() {
-        return "Dashboard Peminjam";
+        return "Peminjam SIPIRANG";
     }
 }

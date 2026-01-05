@@ -79,7 +79,7 @@ public class DetailRuanganController {
     @FXML
     void btnKeluar(ActionEvent event) {
         try {
-            pindahLogin(event, "login.fxml", "SIPIRANG FMIPA");
+            pindahLogin(event, "login.fxml", "LOGIN SIPIRANG");
         } catch (IOException e) {
             e.printStackTrace();
         }
