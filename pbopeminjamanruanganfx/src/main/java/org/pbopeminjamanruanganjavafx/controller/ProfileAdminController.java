@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-public class ProfileUserController {
+public class ProfileAdminController {
 
     @FXML
     private ImageView imgTampilanProfile;
@@ -28,7 +28,7 @@ public class ProfileUserController {
 
     @FXML
     void btnCloseEditProfile(ActionEvent event) {
-        pindahHalaman("dashboard_peminjam_new");
+        pindahHalaman("dashboard_admin_new");
     }
 
     @FXML
