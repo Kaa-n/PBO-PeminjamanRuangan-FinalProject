@@ -18,11 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-<<<<<<< HEAD
         scene = new Scene(loadFXML("dashboard_admin_new"));
-=======
-        scene = new Scene(loadFXML("dashboard_peminjam_new"));
->>>>>>> a38d5e9dccab514808d0957133270d4e94f92469
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         Image icon = new Image(getClass().getResourceAsStream("/images/Container (2).png"));
         stage.getIcons().add(icon);
