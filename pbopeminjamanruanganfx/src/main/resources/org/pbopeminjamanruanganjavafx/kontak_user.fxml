@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -133,14 +134,14 @@
                               <Separator prefWidth="200.0" />
                               <Label prefHeight="27.0" prefWidth="154.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Kirim Pesan" />
                               <Label text="Nama" />
-                              <TextField prefWidth="380" promptText="Masukkan nama Anda" />
+                              <TextField fx:id="txtNama" prefWidth="380" promptText="Masukkan nama Anda" />
                               <Label text="Email" />
-                              <TextField prefWidth="380" promptText="nama@email.com" />
+                              <TextField fx:id="txtEmail" prefWidth="380" promptText="nama@email.com" />
                               <Label text="Subjek Pesan" />
-                              <TextField prefWidth="380" promptText="Contoh: Proyektor Rusak" />
+                              <TextField fx:id="txtSubjek" prefWidth="380" promptText="Contoh: Proyektor Rusak" />
                               <Label text="Pesan" />
-                              <TextField alignment="TOP_LEFT" prefHeight="149.0" prefWidth="538.0" promptText="Tulis pesan Anda disini...." />
-                              <Button mnemonicParsing="false" text="Kirim Pesan" />
+                              <TextArea fx:id="txtPesan" prefHeight="200.0" prefWidth="200.0" promptText="Masukkan pesan anda disini" wrapText="true" />
+                              <Button mnemonicParsing="false" onAction="#btnKirimPesan" text="Kirim Pesan" />
                            </children>
                            <HBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
