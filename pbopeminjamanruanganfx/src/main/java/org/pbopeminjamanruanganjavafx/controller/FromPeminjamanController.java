@@ -47,38 +47,33 @@ public class FromPeminjamanController {
 
     @FXML
     void btnBeranda(ActionEvent event) {
-        pindahHalaman("dashboard_admin_new");
+        pindahHalaman("dashboard_peminjam_new");
     }
 
     @FXML
-    void btnKelolaRuangan(ActionEvent event) {
-        pindahHalaman("kelola_ruangan");
+    void btnRuangan(ActionEvent event) {
+        pindahHalaman("ruangan_peminjam");
     }
 
     @FXML
-    void btnKelolaPeminjaman(ActionEvent event) {
-        pindahHalaman("admin_detail_peminjaman");
-    }
-
-    @FXML
-    void btnKelolaUser(ActionEvent event) {
-        pindahHalaman("kelola_user");
+    void btnStatus(ActionEvent event) {
+        pindahHalaman("user_detail_peminjaman");
     }
 
     @FXML
     void btnKontak(ActionEvent event) {
-        pindahHalaman("kontak_admin");
+        pindahHalaman("kontak_user");
     }
 
     @FXML
     void btnAkun(ActionEvent event) {
-        pindahHalaman("profile_admin");
+        pindahHalaman("Profile");
     }
 
     @FXML
     void btnKeluar(ActionEvent event) {
         try {
-            pindahLogin(event, "login.fxml", "LOGIN");
+            pindahLogin(event, "login.fxml", "LOGIN SIPIRANG");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,6 +88,11 @@ public class FromPeminjamanController {
     void btnKirimPengajuan(ActionEvent event) {
         pindahHalaman("ruangan_peminjam");
 
+    }
+
+    @FXML
+    void btnKembali(ActionEvent event) {
+        pindahHalaman("detail_ruangan_dan_jadwal_peminjam");
     }
 
     @FXML

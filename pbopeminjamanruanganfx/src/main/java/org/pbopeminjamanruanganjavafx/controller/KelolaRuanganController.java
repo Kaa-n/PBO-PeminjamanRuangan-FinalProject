@@ -27,7 +27,7 @@ public class KelolaRuanganController {
 
     @FXML
     void btnAkun(ActionEvent event) {
-        pindahHalaman("Profile");
+        pindahHalaman("profile_admin");
     }
 
     @FXML
@@ -67,7 +67,7 @@ public class KelolaRuanganController {
 
     @FXML
     void btnTambahRuangan(ActionEvent event) {
-        pindahHalaman("TambahRuanganAdmin");
+        pindahHalaman("TambahRuangAdmin");
     }
 
     //pindah halaman
