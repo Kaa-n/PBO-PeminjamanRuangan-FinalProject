@@ -16,7 +16,7 @@ public class DashboardAdminController {
     @FXML
     private void btnAkun() throws IOException {
         try {
-            App.setRoot("Profile");
+            App.setRoot("profile_admin");
         } catch (IOException e) {
             e.printStackTrace();
         }
