@@ -9,43 +9,71 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class DaftarRuanganPeminjamController {
+public class DetailRuanganController {
 
     @FXML
     private ScrollPane contentScrollPane;
 
     @FXML
+    private FlowPane flowPaneFasilitas;
+
+    @FXML
+    private FlowPane flowPaneRangeWaktu;
+
+    @FXML
     private FlowPane flowPaneRuangan;
 
     @FXML
-    void btnBeranda(ActionEvent event) {
-        pindahHalaman("dashboard_peminjam_new");
-    }
+    private StackPane imageContainer;
 
     @FXML
-    void btnKontak(ActionEvent event) {
-        pindahHalaman("kontak_user");
-    }
+    private ImageView imgFotoRuangan;
 
     @FXML
-    void btnRuangan(ActionEvent event) {
-       pindahHalaman("ruangan_peminjam");
-    }
-
+    private Label lblDeskripsi;
 
     @FXML
-    void btnStatus(ActionEvent event) {
-        pindahHalaman("user_detail_peminjaman");
-    }
+    private Label lblKapasitas;
 
+    @FXML
+    private Label lblKapasitas1;
+
+    @FXML
+    private Label lblKapasitas2;
+
+    @FXML
+    private Label lblLokasi;
+
+    @FXML
+    private Label lblNamaRuangan;
+
+    @FXML
+    private Label lblStatus;
+
+    @FXML
+    private DatePicker txtTanggal;
+
+    @FXML
+    void btnAjukanPeminjaman(ActionEvent event) {
+        pindahHalaman("FromPeminjaman");
+    }
 
     @FXML
     void btnAkun(ActionEvent event) {
         pindahHalaman("Profile");
+    }
+
+    @FXML
+    void btnBeranda(ActionEvent event) {
+        pindahHalaman("dashboard_peminjam_new");
     }
 
     @FXML
@@ -54,8 +82,30 @@ public class DaftarRuanganPeminjamController {
             pindahLogin(event, "login.fxml", "SIPIRANG FMIPA");
         } catch (IOException e) {
             e.printStackTrace();
-        }  
+        }
     }
+
+    @FXML
+    void btnKembali(ActionEvent event) {
+        pindahHalaman("ruangan_peminjam");
+    }
+
+    @FXML
+    void btnRuangan(ActionEvent event) {
+        pindahHalaman("ruangan_peminjam");
+    }
+
+    @FXML
+    void btnStatus(ActionEvent event) {
+        pindahHalaman("user_detail_peminjaman");
+    }
+
+    @FXML
+    void btnKontak(ActionEvent event) {
+        pindahHalaman("kontak_user");
+    }
+
+
 
     private void pindahHalaman(String namaFxml) {
         try {
@@ -81,3 +131,4 @@ public class DaftarRuanganPeminjamController {
     }
 
 }
+
