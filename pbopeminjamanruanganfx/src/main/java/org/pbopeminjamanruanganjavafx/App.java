@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-
 /**
  * JavaFX App
  */
@@ -21,16 +20,16 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("kelola_ruangan"));
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        Image icon = new Image(getClass().getResourceAsStream("/images/Container (2).png")); 
+        Image icon = new Image(getClass().getResourceAsStream("/images/Container (2).png"));
         stage.getIcons().add(icon);
         stage.setTitle("SIPIRANG FMIPA");
         stage.setScene(scene);
         stage.show();
 
-        stage.setResizable(false); // Menonaktifkan fitur resize
+        // stage.setResizable(false); // Menonaktifkan fitur resize
     }
 
-    public static  void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
