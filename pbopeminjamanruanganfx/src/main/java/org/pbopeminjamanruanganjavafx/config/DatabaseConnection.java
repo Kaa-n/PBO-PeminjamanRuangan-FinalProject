@@ -8,7 +8,7 @@ public class DatabaseConnection {
     // Konfigurasi Database
     private static final String URL = "jdbc:mysql://localhost:3306/db_peminjaman_ruangan";
     private static final String USER = "root"; 
-    private static final String PASSWORD = ""; 
+    private static final String PASSWORD = "Tsunami25"; 
 
     // Variabel statis untuk menyimpan koneksi
     private static Connection connection;

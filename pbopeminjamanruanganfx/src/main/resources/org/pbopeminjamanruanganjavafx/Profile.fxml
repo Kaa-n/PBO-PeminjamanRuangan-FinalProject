@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pbopeminjamanruanganjavafx.controller.ProfileUserController">
    <padding>
       <Insets bottom="100.0" left="250.0" right="250.0" top="100.0" />
    </padding>
@@ -46,9 +46,13 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="TOP_RIGHT" prefHeight="81.0" prefWidth="502.0">
+                  <HBox alignment="TOP_RIGHT" prefHeight="81.0" prefWidth="502.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="27.0" text="x" />
+                        <Button mnemonicParsing="false" onAction="#btnCloseEditProfile" prefHeight="28.0" prefWidth="27.0" text="x" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Candara Bold" size="12.0" />
+                           </font>
+                        </Button>
                      </children>
                   </HBox>
                </children>
@@ -76,7 +80,7 @@
                               <Font name="Century Gothic" size="12.0" />
                            </font>
                         </Label>
-                        <Label text="NIM">
+                        <Label text="NIM/NIP">
                            <VBox.margin>
                               <Insets bottom="25.0" />
                            </VBox.margin>
@@ -107,22 +111,22 @@
                         <Insets left="10.0" right="25.0" />
                      </HBox.margin>
                      <children>
-                        <TextField prefHeight="30.0" prefWidth="474.0">
+                        <TextField fx:id="txtUsername" prefHeight="30.0" prefWidth="474.0" promptText="Masukkan Username">
                            <VBox.margin>
                               <Insets bottom="10.0" top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField prefHeight="30.0" prefWidth="474.0">
+                        <TextField fx:id="txtNama" prefHeight="30.0" prefWidth="474.0" promptText="Masukkan Nama">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField prefHeight="30.0" prefWidth="474.0">
+                        <TextField fx:id="txtNIM" prefHeight="30.0" prefWidth="474.0" promptText="Masukkan NIM/NIP">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField prefHeight="30.0" prefWidth="474.0">
+                        <TextField fx:id="txtEmail" prefHeight="30.0" prefWidth="474.0" promptText="Masukkan Email">
                            <VBox.margin>
                               <Insets bottom="15.0" />
                            </VBox.margin>
@@ -134,17 +138,17 @@
                            <children>
                               <VBox prefHeight="25.0" prefWidth="338.0">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Pilih Gambar" />
+                                    <Button mnemonicParsing="false" onAction="#btnPilihGambar" prefHeight="25.0" prefWidth="140.0" text="Pilih Gambar" />
                                  </children>
                               </VBox>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="Ganti Kata Sandi" />
+                              <Button mnemonicParsing="false" onAction="#btnGantiKataSandi" prefHeight="25.0" prefWidth="144.0" text="Ganti Kata Sandi" />
                            </children>
                         </HBox>
                         <HBox prefHeight="104.0" prefWidth="483.0">
                            <children>
                               <VBox alignment="CENTER" prefHeight="113.0" prefWidth="141.0" style="-fx-border-color: E0E0E0;">
                                  <children>
-                                    <ImageView fitHeight="103.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="imgTampilanProfile" fitHeight="103.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../images/download.png" />
                                        </image>
@@ -153,7 +157,7 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="97.0" styleClass="btn-simpan-profile" stylesheets="@style.css" text="Simpan">
+                        <Button mnemonicParsing="false" onAction="#btnSimpan" prefHeight="28.0" prefWidth="97.0" styleClass="btn-simpan" stylesheets="@style.css" text="Simpan">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
