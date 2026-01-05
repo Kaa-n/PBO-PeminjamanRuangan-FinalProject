@@ -83,7 +83,7 @@
                               <Insets bottom="1.0" />
                            </padding>
                         </Button>
-                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnKelolaUser" prefHeight="40.0" prefWidth="96.0" styleClass="nav-link" text="Kelola User">
+                        <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" styleClass="nav-link" text="Kelola User">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>
