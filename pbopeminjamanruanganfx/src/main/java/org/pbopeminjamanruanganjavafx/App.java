@@ -22,15 +22,19 @@ public class App extends Application {
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         Image icon = new Image(getClass().getResourceAsStream("/images/Container (2).png"));
         stage.getIcons().add(icon);
-        stage.setTitle("SIPIRANG FMIPA");
+        stage.setTitle("LOGIN SIPIRANG");
         stage.setScene(scene);
         stage.show();
 
-        // stage.setResizable(false); // Menonaktifkan fitur resize
+        stage.setResizable(false); // Menonaktifkan fitur resize
     }
 
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
+    }
+
+    public static void setScene(Scene newScene) {
+        scene = newScene;
     }
 
     public static Parent loadFXML(String fxml) throws IOException {
