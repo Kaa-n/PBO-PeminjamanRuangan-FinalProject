@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #F8F9FA;" stylesheets="@style.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pbopeminjamanruanganjavafx.NavigasiTestController">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #F8F9FA;" stylesheets="@style.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pbopeminjamanruanganjavafx.controller.KontakPeminjamController">
    <content>
       <VBox prefHeight="700.0" prefWidth="1200.0">
          <children>
@@ -59,7 +59,7 @@
                   <Region prefHeight="56.0" prefWidth="209.0" HBox.hgrow="ALWAYS" />
                   <HBox minWidth="592.0" prefHeight="56.0" prefWidth="595.0" spacing="8.0">
                      <children>
-                        <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="65.0" prefWidth="80.0" styleClass="nav-link" text="Beranda">
+                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBeranda" prefHeight="65.0" prefWidth="80.0" styleClass="nav-link" text="Beranda">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>
@@ -67,7 +67,7 @@
                               <Insets bottom="1.0" />
                            </padding>
                         </Button>
-                        <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="94.0" styleClass="nav-link" text="Ruangan">
+                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnRuangan" prefHeight="40.0" prefWidth="94.0" styleClass="nav-link" text="Ruangan">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>
@@ -75,7 +75,7 @@
                               <Insets bottom="1.0" />
                            </padding>
                         </Button>
-                        <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="84.0" styleClass="nav-link" text="Status">
+                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnStatus" prefHeight="40.0" prefWidth="84.0" styleClass="nav-link" text="Status">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>
@@ -83,7 +83,7 @@
                               <Insets bottom="1.0" />
                            </padding>
                         </Button>
-                        <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="65.0" prefWidth="88.0" styleClass="nav-link" text="Kontak">
+                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnKontak" prefHeight="65.0" prefWidth="88.0" styleClass="nav-link" text="Kontak">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>
@@ -102,7 +102,7 @@
                         <Insets bottom="8.0" left="8.0" right="32.0" top="8.0" />
                      </padding>
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="88.0" styleClass="nav-link" text="Akun">
+                        <Button mnemonicParsing="false" onAction="#btnAkun" prefHeight="65.0" prefWidth="88.0" styleClass="nav-link" text="Akun">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>
@@ -110,7 +110,7 @@
                               <Insets bottom="1.0" />
                            </padding>
                         </Button>
-                        <Button layoutX="18.0" layoutY="18.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="88.0" styleClass="btn-logout" text="Keluar">
+                        <Button layoutX="18.0" layoutY="18.0" mnemonicParsing="false" onAction="#btnKeluar" prefHeight="65.0" prefWidth="88.0" styleClass="btn-logout" text="Keluar">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>
