@@ -85,7 +85,7 @@
                               <Insets bottom="1.0" />
                            </padding>
                         </Button>
-                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnStatus" prefHeight="65.0" prefWidth="88.0" styleClass="nav-link" text="Kontak">
+                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#btnKontak" prefHeight="65.0" prefWidth="88.0" styleClass="nav-link" text="Kontak">
                            <font>
                               <Font name="Century Gothic" size="14.0" />
                            </font>

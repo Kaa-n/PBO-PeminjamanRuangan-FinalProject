@@ -13,7 +13,7 @@ public class Admin extends User {
 
     @Override
     public String getDashboardTitle() {
-        return "Dashboard Admin - SIPIRANG";
+        return "Admin SIPIRANG";
     }
     
 }
