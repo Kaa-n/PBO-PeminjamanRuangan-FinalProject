@@ -1,13 +1,13 @@
 package org.pbopeminjamanruanganjavafx;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * JavaFX App
@@ -18,7 +18,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+<<<<<<< HEAD
         scene = new Scene(loadFXML("detail_ruangan_dan_jadwal_peminjam"));
+=======
+        scene = new Scene(loadFXML("FromPeminjaman"));
+>>>>>>> d8945f6d4adbf2cba3320da3145d67fac99990ea
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         Image icon = new Image(getClass().getResourceAsStream("/images/Container (2).png"));
         stage.getIcons().add(icon);

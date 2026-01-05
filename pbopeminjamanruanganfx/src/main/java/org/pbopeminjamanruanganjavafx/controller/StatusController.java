@@ -14,16 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class DetailPeminjamanController {
-
-    @FXML
-    private Label lblKegiatan;
-
-    @FXML
-    private Label lblPeminjam;
-
-    @FXML
-    private TableView<?> tblDetailPeminjaman;
+public class StatusController {
 
     @FXML
     private void btnAkun() throws IOException {
@@ -35,39 +26,34 @@ public class DetailPeminjamanController {
     }
 
     @FXML
-    private void btnBeranda() throws IOException {
+    void btnStatus(ActionEvent event) {
         try {
-            App.setRoot("dashboard_admin_new");
+            App.setRoot("user_detail_peminjaman");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    void btnKelolaPeminjaman(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void btnKelolaRuangan(ActionEvent event) {
+    void btnBeranda() throws IOException {
         try {
-            App.setRoot("kelola_ruangan");
+            App.setRoot("dashboard_peminjam_new");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    void btnKelolaUser(ActionEvent event) {
+    void btnRuangan() throws IOException {
         try {
-            App.setRoot("kelola_user");
+            App.setRoot("ruangan_peminjam");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    private void btnKeluar(ActionEvent event) {
+    void btnKeluar(ActionEvent event) {
         try {
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
@@ -89,7 +75,7 @@ public class DetailPeminjamanController {
     @FXML
     void btnKontak(ActionEvent event) {
         try {
-            App.setRoot("kontak_admin");
+            App.setRoot("kontak_user");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,13 +83,7 @@ public class DetailPeminjamanController {
     }
 
     @FXML
-    void btnSetuju(ActionEvent event) {
-        
-
-    }
-
-    @FXML
-    void btnTolak(ActionEvent event) {
+    void btnBatalkan(ActionEvent event) {
 
     }
 

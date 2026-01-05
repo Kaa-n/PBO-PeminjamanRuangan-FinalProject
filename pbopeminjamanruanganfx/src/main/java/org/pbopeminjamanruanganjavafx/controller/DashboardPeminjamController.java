@@ -7,24 +7,11 @@ import org.pbopeminjamanruanganjavafx.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class DetailPeminjamanController {
-
-    @FXML
-    private Label lblKegiatan;
-
-    @FXML
-    private Label lblPeminjam;
-
-    @FXML
-    private TableView<?> tblDetailPeminjaman;
-
+public class DashboardPeminjamController {
     @FXML
     private void btnAkun() throws IOException {
         try {
@@ -37,30 +24,25 @@ public class DetailPeminjamanController {
     @FXML
     private void btnBeranda() throws IOException {
         try {
-            App.setRoot("dashboard_admin_new");
+            App.setRoot("dashboard_peminjam_new");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    void btnKelolaPeminjaman(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void btnKelolaRuangan(ActionEvent event) {
+    private void btnRuangan(ActionEvent event) {
         try {
-            App.setRoot("kelola_ruangan");
+            App.setRoot("ruangan_peminjam");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    void btnKelolaUser(ActionEvent event) {
+    void btnStatus(ActionEvent event) {
         try {
-            App.setRoot("kelola_user");
+            App.setRoot("user_detail_peminjaman");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,22 +71,9 @@ public class DetailPeminjamanController {
     @FXML
     void btnKontak(ActionEvent event) {
         try {
-            App.setRoot("kontak_admin");
+            App.setRoot("kontak_user");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-    @FXML
-    void btnSetuju(ActionEvent event) {
-        
-
-    }
-
-    @FXML
-    void btnTolak(ActionEvent event) {
-
-    }
-
 }
