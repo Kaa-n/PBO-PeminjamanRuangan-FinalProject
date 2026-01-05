@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
 /**
  * JavaFX App
  */
@@ -19,15 +18,23 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+<<<<<<< HEAD
         scene = new Scene(loadFXML("ruangan_peminjam"));
+=======
+<<<<<<< HEAD
+        scene = new Scene(loadFXML("admin_detail_peminjaman"));
+=======
+        scene = new Scene(loadFXML("dashboard_admin_new"));
+>>>>>>> 6df9bab1e69b43442d4ae1af36dd575a23d3a6b9
+>>>>>>> 73d4f4a2e40d8d5ab6cd559f8f15bbb47b0f700b
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        Image icon = new Image(getClass().getResourceAsStream("/images/Container (2).png")); 
+        Image icon = new Image(getClass().getResourceAsStream("/images/Container (2).png"));
         stage.getIcons().add(icon);
         stage.setTitle("SIPIRANG FMIPA");
         stage.setScene(scene);
         stage.show();
 
-        stage.setResizable(false); // Menonaktifkan fitur resize
+        // stage.setResizable(false); // Menonaktifkan fitur resize
     }
 
     public static void setRoot(String fxml) throws IOException {

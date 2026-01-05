@@ -1,5 +1,6 @@
 module org.pbopeminjamanruanganjavafx {
     requires javafx.controls;
+    requires javafx.graphics;
     requires javafx.fxml;
     requires java.sql;
 
