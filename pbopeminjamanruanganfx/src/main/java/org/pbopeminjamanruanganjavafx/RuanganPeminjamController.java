@@ -7,11 +7,14 @@ import java.util.ResourceBundle;
 
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ScrollEvent;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 import java.net.URL;
 
 public class RuanganPeminjamController implements Initializable {
@@ -20,6 +23,11 @@ public class RuanganPeminjamController implements Initializable {
     private ScrollPane contentScrollPane;
     @FXML
     private FlowPane flowPaneRuangan;
+
+    @FXML
+    private void btnBeranda() throws IOException {
+        App.setRoot("dashboard_peminjam_new");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

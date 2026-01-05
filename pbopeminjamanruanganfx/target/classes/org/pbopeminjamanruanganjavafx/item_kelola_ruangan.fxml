@@ -136,12 +136,12 @@
                <children>
                   <VBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="98.0">
                      <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="82.0" styleClass="btn-edit" stylesheets="@style.css" text="Edit" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnEdit" prefHeight="36.0" prefWidth="82.0" styleClass="btn-edit" stylesheets="@style.css" text="Edit" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="100.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="82.0" styleClass="btn-hapus" stylesheets="@style.css" text="Hapus" />
+                        <Button mnemonicParsing="false" onAction="#btnHapus" prefHeight="37.0" prefWidth="82.0" styleClass="btn-hapus" stylesheets="@style.css" text="Hapus" />
                      </children>
                   </VBox>
                </children>

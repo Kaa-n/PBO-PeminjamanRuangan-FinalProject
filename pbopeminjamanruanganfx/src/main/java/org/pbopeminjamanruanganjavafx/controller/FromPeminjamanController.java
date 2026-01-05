@@ -51,8 +51,9 @@ public class FromPeminjamanController {
         pindahHalaman("ruangan_peminjam");
 
     }
-    
-    private void pindahHalaman(String namaFxml) {
+
+    @FXML
+    void pindahHalaman(String namaFxml) {
         try {
             App.setRoot(namaFxml);
         } catch (IOException e) {
