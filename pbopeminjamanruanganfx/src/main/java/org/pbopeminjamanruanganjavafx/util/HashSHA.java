@@ -29,4 +29,15 @@ public class HashSHA {
 
         return hexString.toString();
     }
+
+    // Tambahkan ini di dalam class HashSHA
+    public static String hash(String input) {
+        try {
+            byte[] hashByte = konversiSHA(input);
+            return konversiHexString(hashByte);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
