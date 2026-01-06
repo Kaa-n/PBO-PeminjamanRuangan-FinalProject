@@ -146,7 +146,7 @@
                                                       <Font name="Century Gothic Bold" size="16.0" />
                                                    </font>
                                                 </Label>
-                                                <Label contentDisplay="CENTER" prefHeight="16.0" prefWidth="375.0" text="Manajemen Data Raunagn yang Tersedia untuk Peminjam">
+                                                <Label contentDisplay="CENTER" prefHeight="16.0" prefWidth="375.0" text="Manajemen Data Ruangan yang Tersedia untuk Peminjam">
                                                    <font>
                                                       <Font name="Century Gothic" size="13.0" />
                                                    </font>

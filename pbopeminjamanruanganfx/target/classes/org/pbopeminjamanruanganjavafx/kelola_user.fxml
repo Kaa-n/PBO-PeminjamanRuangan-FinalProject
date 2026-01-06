@@ -149,18 +149,9 @@
                                                             <Font name="Century Gothic Bold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label contentDisplay="CENTER" prefHeight="16.0" prefWidth="375.0" text="kelola..">
+                                                      <Label contentDisplay="CENTER" prefHeight="16.0" prefWidth="375.0" text="Kelola User">
                                                          <font>
                                                             <Font name="Century Gothic" size="13.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
-                                                </VBox>
-                                                <VBox alignment="CENTER_LEFT" minWidth="-Infinity" prefHeight="68.0" prefWidth="403.0" HBox.hgrow="ALWAYS">
-                                                   <children>
-                                                      <Label contentDisplay="CENTER" prefHeight="43.0" prefWidth="413.0" text="Daftarkan banyak akun secara bersamaan dengan import file exel atau coba manual" wrapText="true">
-                                                         <font>
-                                                            <Font name="Century Gothic" size="14.0" />
                                                          </font>
                                                       </Label>
                                                    </children>
@@ -171,7 +162,7 @@
                                     </VBox>
                                     <HBox maxWidth="1053.0" minWidth="1053.0" prefHeight="68.0" prefWidth="1068.0">
                                        <children>
-                                          <HBox minWidth="284.0" prefHeight="58.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-color: E0E0E0; -fx-border-radius: 8; -fx-background-radius: 8;">
+                                          <HBox minWidth="284.0" prefHeight="74.0" prefWidth="342.0" style="-fx-background-color: white; -fx-border-color: E0E0E0; -fx-border-radius: 8; -fx-background-radius: 8;">
                                              <children>
                                                 <VBox alignment="CENTER" prefHeight="54.0" prefWidth="100.0">
                                                    <children>
@@ -184,12 +175,12 @@
                                                 </VBox>
                                                 <VBox alignment="CENTER_LEFT" minWidth="206.0" prefHeight="53.0" prefWidth="230.0">
                                                    <children>
-                                                      <Label prefHeight="46.0" prefWidth="147.0" text="Total User">
+                                                      <Label prefHeight="30.0" prefWidth="147.0" text="Total User">
                                                          <font>
                                                             <Font name="Century Gothic Bold" size="18.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="txtTotalUser" contentDisplay="CENTER" prefHeight="31.0" prefWidth="79.0" text="4" textAlignment="CENTER">
+                                                      <Label fx:id="lblTotalUser" contentDisplay="CENTER" prefHeight="31.0" prefWidth="79.0" text="4" textAlignment="CENTER">
                                                          <font>
                                                             <Font name="Century Gothic Bold" size="18.0" />
                                                          </font>
@@ -200,188 +191,91 @@
                                                    </padding>
                                                 </VBox>
                                              </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
                                           </HBox>
-                                          <Region maxWidth="363.0" minWidth="363.0" prefHeight="68.0" prefWidth="319.0" />
-                                          <VBox alignment="CENTER_RIGHT" maxWidth="461.0" prefHeight="68.0" prefWidth="461.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: e0e0e0; -fx-border-radius: 8;">
-                                             <children>
-                                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDaftarAkunBacth" prefHeight="39.0" prefWidth="195.0" style="-fx-background-color: #79d7b0;" styleClass="btn-tambah-ruangan" text="+ Daftarkan Bacth Akun">
-                                                   <font>
-                                                      <Font name="Century Gothic Bold" size="12.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                             <padding>
-                                                <Insets right="16.0" />
-                                             </padding>
-                                          </VBox>
                                        </children>
                                     </HBox>
-                                    <HBox prefHeight="16.0" prefWidth="1068.0" />
-                                    <VBox>
+                                    <VBox alignment="CENTER">
                                        <children>
-                                          <FlowPane fx:id="flowPaneRuangan1" hgap="16.0" prefWidth="1053.0" vgap="16.0">
+                                          <FlowPane fx:id="flowPaneRuangan1" alignment="CENTER" hgap="16.0" prefHeight="471.0" prefWidth="747.0" vgap="16.0">
                                              <children>
-                                                <VBox prefWidth="630.0" style="-fx-background-color: white; -fx-background-radius: 16px;">
+                                                <VBox alignment="CENTER" prefHeight="482.0" prefWidth="1064.0" spacing="16.0" style="-fx-background-color: #eeeeee; -fx-border-radius: 12; -fx-background-radius: 12;">
                                                    <children>
-                                                      <VBox prefWidth="643.0" spacing="8.0">
+                                                      <VBox prefWidth="375.0" spacing="8.0">
                                                          <children>
-                                                            <VBox spacing="16.0">
-                                                               <children>
-                                                                  <HBox prefHeight="17.0" VBox.vgrow="ALWAYS">
-                                                                     <children>
-                                                                        <HBox maxHeight="333.0" prefHeight="17.0" prefWidth="390.0">
-                                                                           <children>
-                                                                              <Label prefHeight="17.0" text="Lab Komputer 1">
-                                                                                 <font>
-                                                                                    <Font name="Century Gothic Bold" size="14.0" />
-                                                                                 </font>
-                                                                              </Label>
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <Region prefHeight="17.0" prefWidth="67.0" />
-                                                                        <HBox alignment="TOP_RIGHT" prefHeight="17.0" prefWidth="246.0">
-                                                                           <children>
-                                                                              <Label text="p" textFill="#676767">
-                                                                                 <font>
-                                                                                    <Font size="14.0" />
-                                                                                 </font>
-                                                                              </Label>
-                                                                           </children>
-                                                                        </HBox>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <Label alignment="TOP_LEFT" maxHeight="72.0" maxWidth="-Infinity" prefHeight="48.0" prefWidth="566.0" text="p" textFill="#676767" wrapText="true" />
-                                                                  <HBox VBox.vgrow="ALWAYS">
-                                                                     <children>
-                                                                        <HBox spacing="8.0">
-                                                                           <children>
-                                                                              <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                                                                                 <image>
-                                                                                    <Image url="@../../images/Container%20(2).png" />
-                                                                                 </image>
-                                                                              </ImageView>
-                                                                              <VBox>
-                                                                                 <children>
-                                                                                    <Label prefHeight="16.0" prefWidth="222.0" text="p" textFill="#676767" />
-                                                                                    <Label layoutX="10.0" layoutY="10.0" prefHeight="16.0" prefWidth="222.0" text="p" textFill="#676767" />
-                                                                                 </children>
-                                                                              </VBox>
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <Region prefHeight="16.0" prefWidth="77.0" />
-                                                                        <HBox alignment="TOP_RIGHT" maxWidth="350.0" prefHeight="16.0" prefWidth="391.0" spacing="8.0">
-                                                                           <children>
-                                                                              <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                                                                                 <image>
-                                                                                    <Image url="@../../images/Container%20(2).png" />
-                                                                                 </image>
-                                                                              </ImageView>
-                                                                              <VBox>
-                                                                                 <children>
-                                                                                    <Label text="p" textFill="#676767" />
-                                                                                    <Label layoutX="10.0" layoutY="10.0" text="p" textFill="#676767" />
-                                                                                 </children>
-                                                                              </VBox>
-                                                                           </children>
-                                                                        </HBox>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <Label text="p" />
-                                                               </children>
-                                                            </VBox>
+                                                            <Label text="Nama:">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtNama" styleClass="fltxt-form" />
                                                          </children>
-                                                         <padding>
-                                                            <Insets bottom="8.0" left="32.0" right="32.0" top="32.0" />
-                                                         </padding>
+                                                      </VBox>
+                                                      <VBox layoutX="10.0" layoutY="10.0" prefWidth="375.0" spacing="8.0">
+                                                         <children>
+                                                            <Label text="Username:">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtUsername" styleClass="fltxt-form" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="10.0" layoutY="79.0" prefWidth="375.0" spacing="8.0">
+                                                         <children>
+                                                            <Label text="Email:">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtEmail" styleClass="fltxt-form" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="10.0" layoutY="149.0" prefWidth="375.0" spacing="8.0">
+                                                         <children>
+                                                            <Label text="Peran:">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <ComboBox fx:id="comboBoxPeran" prefHeight="28.0" prefWidth="179.0" styleClass="fltxt-form" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox fx:id="boxNomorInduk" layoutX="10.0" layoutY="149.0" prefWidth="375.0" spacing="8.0">
+                                                         <children>
+                                                            <Label text="Nomor Induk:">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtNomorInduk" styleClass="fltxt-form" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox fx:id="boxProdi" layoutX="10.0" layoutY="386.0" prefWidth="375.0" spacing="8.0">
+                                                         <children>
+                                                            <Label text="Prodi">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtProdi" styleClass="fltxt-form" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="41.0" prefWidth="1064.0">
+                                                         <children>
+                                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDaftarAkun" prefHeight="39.0" prefWidth="151.0" styleClass="btn-tambah-ruangan" text="+ Daftarkan Akun">
+                                                               <font>
+                                                                  <Font name="Century Gothic Bold" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                         </children>
                                                       </VBox>
                                                    </children>
-                                                </VBox>
-                                                <VBox prefWidth="407.0">
-                                                   <children>
-                                                      <VBox prefHeight="592.0" prefWidth="407.0" style="-fx-background-color: white; -fx-background-radius: 16px;">
-                                                         <children>
-                                                            <VBox prefWidth="407.0" spacing="16.0" VBox.vgrow="ALWAYS">
-                                                               <VBox.margin>
-                                                                  <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
-                                                               </VBox.margin>
-                                                               <children>
-                                                                  <VBox prefWidth="375.0" spacing="8.0">
-                                                                     <children>
-                                                                        <Label text="Nama:">
-                                                                           <font>
-                                                                              <Font size="14.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <TextField fx:id="txtNama" styleClass="fltxt-form" />
-                                                                     </children>
-                                                                  </VBox>
-                                                                  <VBox layoutX="10.0" layoutY="10.0" prefWidth="375.0" spacing="8.0">
-                                                                     <children>
-                                                                        <Label text="Username:">
-                                                                           <font>
-                                                                              <Font size="14.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <TextField fx:id="txtUsername" styleClass="fltxt-form" />
-                                                                     </children>
-                                                                  </VBox>
-                                                                  <VBox layoutX="10.0" layoutY="79.0" prefWidth="375.0" spacing="8.0">
-                                                                     <children>
-                                                                        <Label text="Email:">
-                                                                           <font>
-                                                                              <Font size="14.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <TextField fx:id="txtEmail" styleClass="fltxt-form" />
-                                                                     </children>
-                                                                  </VBox>
-                                                                  <VBox layoutX="10.0" layoutY="149.0" prefWidth="375.0" spacing="8.0">
-                                                                     <children>
-                                                                        <Label text="Peran:">
-                                                                           <font>
-                                                                              <Font size="14.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <ComboBox fx:id="comboBoxPeran" prefHeight="28.0" prefWidth="179.0" styleClass="fltxt-form" />
-                                                                     </children>
-                                                                  </VBox>
-                                                                  <VBox layoutX="10.0" layoutY="149.0" prefWidth="375.0" spacing="8.0">
-                                                                     <children>
-                                                                        <Label text="Nomor Induk:">
-                                                                           <font>
-                                                                              <Font size="14.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <TextField fx:id="txtNomorInduk" styleClass="fltxt-form" />
-                                                                     </children>
-                                                                  </VBox>
-                                                                  <VBox layoutX="10.0" layoutY="386.0" prefWidth="375.0" spacing="8.0">
-                                                                     <children>
-                                                                        <Label text="Prodi">
-                                                                           <font>
-                                                                              <Font size="14.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <TextField fx:id="txtProdi" styleClass="fltxt-form" />
-                                                                     </children>
-                                                                  </VBox>
-                                                                  <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="80.0" prefWidth="359.0">
-                                                                     <children>
-                                                                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnDaftarAkun" prefHeight="39.0" prefWidth="151.0" styleClass="btn-tambah-ruangan" text="+ Daftarkan Akun">
-                                                                           <font>
-                                                                              <Font name="Century Gothic Bold" size="12.0" />
-                                                                           </font>
-                                                                        </Button>
-                                                                     </children>
-                                                                  </VBox>
-                                                               </children>
-                                                            </VBox>
-                                                         </children>
-                                                         <VBox.margin>
-                                                            <Insets />
-                                                         </VBox.margin>
-                                                      </VBox>
-                                                   </children>
+                                                   <FlowPane.margin>
+                                                      <Insets />
+                                                   </FlowPane.margin>
                                                 </VBox>
                                              </children>
                                           </FlowPane>
