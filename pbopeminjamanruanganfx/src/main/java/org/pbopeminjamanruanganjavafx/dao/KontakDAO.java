@@ -25,8 +25,6 @@ public class KontakDAO {
 
         if (kontak.getIdUser() != null) {
             ps.setInt(1, kontak.getIdUser());
-        } else {
-            ps.setNull(1, java.sql.Types.INTEGER);
         }
 
         ps.setString(2, kontak.getNama());
