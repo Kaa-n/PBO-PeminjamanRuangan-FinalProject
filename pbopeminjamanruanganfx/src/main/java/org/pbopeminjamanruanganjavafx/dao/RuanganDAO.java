@@ -11,19 +11,32 @@ import org.pbopeminjamanruanganjavafx.config.DatabaseConnection;
 import org.pbopeminjamanruanganjavafx.model.Fasilitas;
 import org.pbopeminjamanruanganjavafx.model.Gedung;
 import org.pbopeminjamanruanganjavafx.model.Ruangan;
+import org.pbopeminjamanruanganjavafx.model.User;
+import org.pbopeminjamanruanganjavafx.util.UserSession;
+import org.pbopeminjamanruanganjavafx.model.Peminjam;
 
 public class RuanganDAO {
     public List<Ruangan> getAllRuangan() {
         List<Ruangan> listRuangan = new ArrayList<>();
         
+        User user = UserSession.getUser();
+        String prodi = null;
+        if (user instanceof Peminjam) {
+            prodi = ((Peminjam) user).getProdi();
+        }
         // QUERY JOIN: Mengambil data Ruangan & data Gedung 
-        String query = "SELECT r.*, g.nama_gedung, g.jam_buka, g.jam_tutup " +
+        String query = "SELECT r.*, g.nama_gedung, g.jam_buka, g.jam_tutup, " +
+                       "(SELECT COUNT(*) FROM reservasi res " +
+                       " JOIN peminjam p ON res.id_peminjam = p.id_peminjam " +
+                       " WHERE res.id_ruangan = r.id_ruangan AND p.prodi = ?) as popularitas " +
                        "FROM ruangan r " +
-                       "JOIN gedung g ON r.id_gedung = g.id_gedung";
+                       "JOIN gedung g ON r.id_gedung = g.id_gedung " +
+                       "ORDER BY popularitas DESC";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
+            PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, prodi);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 // Ambil data Ruangan

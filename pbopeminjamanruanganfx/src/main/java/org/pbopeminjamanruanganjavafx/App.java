@@ -15,9 +15,11 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static Stage stage;
 
     @Override
     public void start(Stage stage) throws IOException {
+        App.stage = stage;
         scene = new Scene(loadFXML("login"));
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         Image icon = new Image(getClass().getResourceAsStream("/images/Container (2).png"));
@@ -26,17 +28,21 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
-        // stage.setResizable(false); // Menonaktifkan fitur resize
+        stage.setResizable(false); // Menonaktifkan fitur resize
     }
 
-    public static void setRoot(String fxml) throws IOException {
+   public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
-    public static void setScene(Scene newScene) {
+   public static void setScene(Scene newScene) {
         scene = newScene;
+        // Perintahkan stage untuk menampilkan scene baru!
+        if (stage != null) {
+            stage.setScene(newScene);
+        }
     }
-
+    
     public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();

@@ -56,7 +56,21 @@ public class UserDAO {
                 }
 
                 // === PEMINJAM ===
-                User peminjam = new Peminjam(idUser, username, role);
+                
+                String prodi = "-"; // Default jika tidak ketemu
+                
+                String sqlPeminjam = "SELECT prodi FROM peminjam WHERE id_user = ?";
+                try (PreparedStatement psPeminjam = conn.prepareStatement(sqlPeminjam)) {
+                    psPeminjam.setInt(1, idUser);
+                    ResultSet rsPeminjam = psPeminjam.executeQuery();
+                    
+                    if (rsPeminjam.next()) {
+                        prodi = rsPeminjam.getString("prodi");
+                    }
+                }
+
+                // Masukkan prodi yang sudah diambil dari tabel peminjam ke constructor
+                User peminjam = new Peminjam(idUser, username, role, prodi);
                 UserSession.setUser(peminjam);
                 return peminjam;
             }

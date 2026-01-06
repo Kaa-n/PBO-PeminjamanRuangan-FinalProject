@@ -1,10 +1,15 @@
 package org.pbopeminjamanruanganjavafx.model;
 
 public class Peminjam extends User {
-    public Peminjam(int idUser, String username, String role) {
+    private String prodi;
+    public Peminjam(int idUser, String username, String role, String prodi) {
         super(idUser, username, role);
+        this.prodi = prodi;
     }
-    
+
+    public String getProdi() {
+        return prodi;
+    }
 
     @Override
     public String getDashboardFxml() {

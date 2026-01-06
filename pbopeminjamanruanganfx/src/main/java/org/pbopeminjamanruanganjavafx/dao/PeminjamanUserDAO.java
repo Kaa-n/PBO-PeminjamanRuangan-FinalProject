@@ -1,8 +1,12 @@
 package org.pbopeminjamanruanganjavafx.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,5 +70,74 @@ public class PeminjamanUserDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+
+    public boolean simpanReservasi(int idPeminjam, int idRuangan, int idTujuan, 
+                                   int jumlahPeserta, LocalDate tanggal, 
+                                   LocalTime jamMulai, LocalTime jamSelesai, 
+                                   String noTelepon, String keterangan) {
+        
+        String query = "INSERT INTO reservasi " +
+                       "(id_peminjam, id_ruangan, id_tujuan, jumlah_peserta, tanggal, " +
+                       "jam_mulai, jam_selesai, no_telepon, keterangan_reservasi, status) " +
+                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'menunggu')";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, idPeminjam);
+            stmt.setInt(2, idRuangan);
+            stmt.setInt(3, idTujuan);
+            stmt.setInt(4, jumlahPeserta);
+            stmt.setDate(5, java.sql.Date.valueOf(tanggal));
+            stmt.setTime(6, java.sql.Time.valueOf(jamMulai));
+            stmt.setTime(7, java.sql.Time.valueOf(jamSelesai));
+            stmt.setString(8, noTelepon);
+            stmt.setString(9, keterangan);
+
+            int result = stmt.executeUpdate();
+            return result > 0; // Mengembalikan true jika berhasil simpan
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public class DataPemohon {
+        public String nama;
+        public String nim;
+        public String noTelepon; 
+    }
+
+
+    public DataPemohon getDetailPemohon(int idUser) {
+        DataPemohon data = null;
+        
+        // Query Join antara tabel User (ambil nama) dan Peminjam (ambil NIM)
+        String query = "SELECT u.nama, p.nomor_induk " +
+                       "FROM user u " +
+                       "JOIN peminjam p ON u.id_user = p.id_user " +
+                       "WHERE u.id_user = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            stmt.setInt(1, idUser);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                data = new DataPemohon();
+                data.nama = rs.getString("nama");
+                data.nim = rs.getString("nomor_induk");
+                // data.noTelepon = rs.getString("no_telepon"); // Jika ada kolomnya
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 }
