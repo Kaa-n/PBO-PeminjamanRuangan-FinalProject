@@ -3,64 +3,91 @@ package org.pbopeminjamanruanganjavafx.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import org.pbopeminjamanruanganjavafx.config.DatabaseConnection;
 import org.pbopeminjamanruanganjavafx.model.Admin;
 import org.pbopeminjamanruanganjavafx.model.Peminjam;
 import org.pbopeminjamanruanganjavafx.model.User;
 import org.pbopeminjamanruanganjavafx.util.HashSHA;
+import org.pbopeminjamanruanganjavafx.util.UserSession;
 
 public class UserDAO {
 
     public User validasiLogin(String username_email, String rawPassword) {
         Connection conn = DatabaseConnection.getConnection();
-        String sql = "SELECT * FROM user WHERE (username = ? OR email = ?) AND password = ?"; // menancari data user berdasarkan username/email dan password
-        
+        String sql = "SELECT * FROM user WHERE (username = ? OR email = ?) AND password = ?";
+
         try {
-            // Hash Password Input User
-            String passwordHash = HashSHA.konversiHexString(HashSHA.konversiSHA(rawPassword));
+            // Hash password
+            String passwordHash = HashSHA.konversiHexString(
+                    HashSHA.konversiSHA(rawPassword)
+            );
 
-            PreparedStatement ps = conn.prepareStatement(sql); // proses pembuatan statement
-            ps.setString(1, username_email); // ? pertama adalah username
-            ps.setString(2, username_email); // ? kedua adalah email
-            ps.setString(3, passwordHash); // ? ketiga adalah password yang sudah di-hash
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username_email);
+            ps.setString(2, username_email);
+            ps.setString(3, passwordHash);
 
-            ResultSet rs = ps.executeQuery(); // eksekusi query
+            ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) { // jika ada data yang ditemukan
-                // Ambil data dasar
-                int id = rs.getInt("id_user");
+            if (rs.next()) {
+                int idUser = rs.getInt("id_user");
                 String role = rs.getString("role");
-                String dbUsername = rs.getString("username");
+                String username = rs.getString("username");
 
-                // POLYMORPHISM: Return tipe User, isi berbeda tergantung role
-                if ("admin".equalsIgnoreCase(role) || "super_admin".equalsIgnoreCase(role)) {
-                    return new Admin(id, dbUsername, role);
-                } else {
-                    return new Peminjam(id, dbUsername, role);
+                // === ADMIN ===
+                if ("admin".equalsIgnoreCase(role)) {
+
+                    // Ambil level admin (staf / super_admin)
+                    String sqlAdmin = "SELECT level FROM admin WHERE id_user = ?";
+                    PreparedStatement psAdmin = conn.prepareStatement(sqlAdmin);
+                    psAdmin.setInt(1, idUser);
+
+                    ResultSet rsAdmin = psAdmin.executeQuery();
+                    if (rsAdmin.next()) {
+                        UserSession.setAdminLevel(
+                                rsAdmin.getString("level")
+                        );
+                    }
+
+                    User admin = new Admin(idUser, username, role);
+                    UserSession.setUser(admin);
+                    return admin;
                 }
+
+                // === PEMINJAM ===
+                User peminjam = new Peminjam(idUser, username, role);
+                UserSession.setUser(peminjam);
+                return peminjam;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    // =============================
+    // Ambil nama & email (untuk kontak user)
+    // =============================
+    public String[] getNamaEmailById(int idUser) {
+        String sql = "SELECT nama, email FROM user WHERE id_user = ?";
+        Connection conn = DatabaseConnection.getConnection();
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idUser);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new String[]{
+                        rs.getString("nama"),
+                        rs.getString("email")
+                };
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null; // Login gagal
+        return null;
     }
-    public String[] getNamaEmailById(int idUser) {
-    String sql = "SELECT nama, email FROM user WHERE id_user = ?";
-    Connection conn = DatabaseConnection.getConnection();
-
-    try (PreparedStatement ps = conn.prepareStatement(sql)) {
-        ps.setInt(1, idUser);
-        ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            return new String[] {
-                rs.getString("nama"),
-                rs.getString("email")
-            };
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return null;
-}
 }
