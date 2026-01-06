@@ -164,3 +164,49 @@
 .hyperlink-lupapassword:pressed {
     -fx-text-fill: #333333; /* Warna biru paling gelap saat ditekan */
 }
+
+
+
+
+
+/* --- STYLE DASAR TOMBOL (Default / Tersedia) --- */
+.button-slot {
+    -fx-background-color:  #F3F3F3; /* Abu-abu muda lembut */
+    -fx-text-fill: #1c1c1c;
+    -fx-background-radius: 16px; /* Membuat sudut tumpul (Capsule) */
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER;
+    
+}
+
+/* Efek Hover (Saat mouse di atasnya) */
+.button-slot:hover {
+    -fx-background-color: #E4E6E9;
+}
+
+/* --- JIKA DIPILIH (SELECTED) - HIJAU PASTEL --- */
+.button-slot:selected {
+    -fx-background-color: #D1F2D3; /* Hijau Pastel */ /* Teks Hijau Tua */
+    
+}
+
+/* --- SUDAH DIBOOKING (DISABLED) - MERAH PASTEL --- */
+.button-booked {
+    -fx-background-color: #FAD2D2; /* Merah Pastel *//* Teks Merah Tua */
+    -fx-opacity: 1.0; /* Pastikan tidak transparan */
+}
+
+/* --- MENUNGGU PERSETUJUAN (DISABLED) - KUNING PASTEL --- */
+.button-waiting {
+    -fx-background-color: #FFF9C4; /* Kuning Pastel */ /* Teks Kuning Emas */
+    -fx-opacity: 1.0;
+}
+
+/* --- TOMBOL JAM KHUSUS (BAWAH) --- */
+.button-khusus {
+    -fx-background-color: #555555;
+    -fx-text-fill: white;
+    -fx-background-radius: 16px;
+    -fx-cursor: hand;
+}
