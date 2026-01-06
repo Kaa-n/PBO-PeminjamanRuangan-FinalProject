@@ -14,7 +14,6 @@ public class PeminjamanUserDAO {
     public List<Peminjaman> getPeminjamanSaya(int idUser) {
         List<Peminjaman> list = new ArrayList<>();
 
-        // 1. PERBAIKAN QUERY: Tambahkan 'r.no_telepon'
         String query = "SELECT r.id_reservasi, u.nama AS nama_peminjam, ru.nama_ruangan, " +
                 "r.tanggal, r.jam_mulai, r.jam_selesai, r.jumlah_peserta, " +
                 "r.status, r.keterangan_reservasi, r.no_telepon " + // <--- TAMBAH INI
@@ -22,19 +21,17 @@ public class PeminjamanUserDAO {
                 "JOIN ruangan ru ON r.id_ruangan = ru.id_ruangan " +
                 "JOIN peminjam p ON r.id_peminjam = p.id_peminjam " +
                 "JOIN user u ON p.id_user = u.id_user " +
-                "WHERE u.id_user = ? " + 
+                "WHERE u.id_user = ? " +
                 "ORDER BY r.tanggal DESC";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
+                PreparedStatement ps = conn.prepareStatement(query)) {
 
-            ps.setInt(1, idUser); 
+            ps.setInt(1, idUser);
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                // 2. PERBAIKAN PENGAMBILAN DATA
-                // Pastikan urutan parameter ini SAMA PERSIS dengan Constructor di Peminjaman.java
                 list.add(new Peminjaman(
                         rs.getInt("id_reservasi"),
                         rs.getString("nama_peminjam"),
@@ -44,7 +41,7 @@ public class PeminjamanUserDAO {
                         rs.getInt("jumlah_peserta"),
                         rs.getString("status"),
                         rs.getString("keterangan_reservasi"), // Note
-                        rs.getString("no_telepon")            // Kontak (ambil dari kolom no_telepon)
+                        rs.getString("no_telepon") // Kontak (ambil dari kolom no_telepon)
                 ));
             }
         } catch (Exception e) {
@@ -53,19 +50,18 @@ public class PeminjamanUserDAO {
         }
         return list;
     }
-    
+
     public boolean batalkanPeminjaman(int idReservasi) {
         String query = "DELETE FROM reservasi WHERE id_reservasi = ?";
-        
+
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            
+                PreparedStatement ps = conn.prepareStatement(query)) {
+
             ps.setInt(1, idReservasi);
-            
+
             int rowsAffected = ps.executeUpdate();
-            // Jika ada baris yang terhapus (rows > 0), berarti berhasil
-            return rowsAffected > 0; 
-            
+            return rowsAffected > 0;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;

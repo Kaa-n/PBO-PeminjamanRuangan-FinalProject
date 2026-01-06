@@ -1,6 +1,10 @@
 package org.pbopeminjamanruanganjavafx.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import org.pbopeminjamanruanganjavafx.model.Ruangan;
 
 import org.pbopeminjamanruanganjavafx.App;
 
@@ -118,6 +122,58 @@ public class FromPeminjamanController {
         stage.setResizable(false);
         stage.centerOnScreen();
 
+    }
+
+
+
+
+
+    private Ruangan ruanganTerpilih;
+    private LocalDate tanggalTerpilih;
+    private LocalTime jamMulai;
+    private LocalTime jamSelesai;
+    private boolean isKhusus;
+
+    // --- METHOD INI YANG AKAN DIPANGGIL DARI DETAIL RUANGAN ---
+    public void setDataPeminjaman(Ruangan ruangan, LocalDate tanggal, LocalTime mulai, LocalTime selesai, boolean khusus) {
+        this.ruanganTerpilih = ruangan;
+        this.tanggalTerpilih = tanggal;
+        this.jamMulai = mulai;
+        this.jamSelesai = selesai;
+        this.isKhusus = khusus;
+
+        // 1. Isi & Kunci Ruangan
+        txtRuangan.setText(ruangan.getNamaRuangan());
+        txtRuangan.setDisable(true); // Read-only
+
+        // 2. Isi & Kunci Tanggal (Format: 12-01-2026)
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        txtTanggal.setText(tanggal.format(fmt));
+        txtTanggal.setDisable(true); // Read-only
+
+        // 3. Logika Jam (Standard vs Khusus)
+        if (isKhusus) {
+            // Mode Khusus: Kosongkan dan biarkan user mengetik
+            txtJam.setText("");
+            txtJam.setPromptText("Contoh: 07.00 - 15.00");
+            txtJam.setDisable(false); // BISA DIEDIT
+            txtJam.setEditable(true);
+        } else {
+            // Mode Normal: Isi otomatis dan kunci
+            String range = mulai + " - " + selesai;
+            txtJam.setText(range);
+            txtJam.setDisable(true); // TIDAK BISA DIEDIT
+        }
+        
+        // (Opsional) Auto-fill kapasitas max
+        txtJumlahPeserta.setPromptText("Max: " + ruangan.getKapasitas());
+    }
+
+    @FXML
+    private void handleSimpan() {
+        // Logika simpan ke database...
+        // Jika isKhusus == true, ambil string jam mentah dari txtJam.getText()
+        // Jika isKhusus == false, pakai variabel jamMulai & jamSelesai
     }
 
 }

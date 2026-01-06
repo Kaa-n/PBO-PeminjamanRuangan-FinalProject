@@ -7,6 +7,8 @@ import java.util.List;
 import org.pbopeminjamanruanganjavafx.App;
 import org.pbopeminjamanruanganjavafx.config.DatabaseConnection;
 import org.pbopeminjamanruanganjavafx.dao.DashboardPeminjamDAO;
+import org.pbopeminjamanruanganjavafx.model.User;
+import org.pbopeminjamanruanganjavafx.util.UserSession;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,54 +21,45 @@ import javafx.stage.Stage;
 
 public class DashboardPeminjamController {
 
+    // ================= NAVIGATION =================
+
     @FXML
     private void btnAkun() throws IOException {
-        try {
-            App.setRoot("Profile");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        App.setRoot("Profile");
     }
 
     @FXML
     private void btnBeranda() throws IOException {
-        try {
-            App.setRoot("dashboard_peminjam_new");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        App.setRoot("dashboard_peminjam_new");
     }
 
     @FXML
-    private void btnRuangan(ActionEvent event) {
-        try {
-            App.setRoot("ruangan_peminjam");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void btnRuangan(ActionEvent event) throws IOException {
+        App.setRoot("ruangan_peminjam");
     }
 
     @FXML
-    void btnStatus(ActionEvent event) {
-        try {
-            App.setRoot("user_detail_peminjaman");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void btnStatus(ActionEvent event) throws IOException {
+        App.setRoot("user_detail_peminjaman");
+    }
+
+    @FXML
+    private void btnKontak(ActionEvent event) throws IOException {
+        App.setRoot("kontak_user");
     }
 
     @FXML
     private void btnKeluar(ActionEvent event) {
         try {
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource())
+                    .getScene().getWindow();
 
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
-            Parent root = fxmlLoader.load();
+            FXMLLoader loader =
+                    new FXMLLoader(App.class.getResource("login.fxml"));
+            Parent root = loader.load();
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.setScene(new Scene(root));
             stage.setTitle("LOGIN SIPIRANG");
-
             stage.setResizable(false);
             stage.centerOnScreen();
         } catch (IOException e) {
@@ -74,65 +67,118 @@ public class DashboardPeminjamController {
         }
     }
 
-    @FXML
-    void btnKontak(ActionEvent event) {
-        try {
-            App.setRoot("kontak_user");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    private Label lblTotalPeminjaman;
+    // ================= DASHBOARD COMPONENT =================
 
-    @FXML
-    private Label lblDisetujui;
+    @FXML private Label lblTotalPeminjaman;
+    @FXML private Label lblDisetujui;
+    @FXML private Label lblPending;
+    @FXML private Label lblDitolak;
 
-    @FXML
-    private Label lblPending;
+    @FXML private VBox aktivitasContainer;
 
-    @FXML
-    private Label lblDitolak;
-
-    @FXML
-    private VBox aktivitasContainer;
-
-    // sementara (dummy)
-    private final int ID_PEMINJAM = 1;
+    // ================= INITIALIZE =================
 
     @FXML
     public void initialize() {
-        loadDashboard();
+        User userLogin = UserSession.getUser();
+
+        if (userLogin == null) {
+            System.out.println("ERROR: User belum login");
+            return;
+        }
+
+        loadDashboard(userLogin.getIdUser());
     }
 
-    private void loadDashboard() {
+    // ================= LOAD DASHBOARD =================
+
+    private void loadDashboard(int idPeminjam) {
         Connection conn = DatabaseConnection.getConnection();
         DashboardPeminjamDAO dao = new DashboardPeminjamDAO(conn);
 
         // ===== CARD DATA =====
         lblTotalPeminjaman.setText(
-            String.valueOf(dao.countAll(ID_PEMINJAM))
+                String.valueOf(dao.countAll(idPeminjam))
         );
         lblDisetujui.setText(
-            String.valueOf(dao.countByStatus(ID_PEMINJAM, "disetujui"))
+                String.valueOf(dao.countByStatus(idPeminjam, "disetujui"))
         );
         lblPending.setText(
-            String.valueOf(dao.countByStatus(ID_PEMINJAM, "menunggu"))
+                String.valueOf(dao.countByStatus(idPeminjam, "menunggu"))
         );
         lblDitolak.setText(
-            String.valueOf(dao.countByStatus(ID_PEMINJAM, "ditolak"))
+                String.valueOf(dao.countByStatus(idPeminjam, "ditolak"))
         );
 
         // ===== AKTIVITAS TERBARU =====
-        List<String[]> aktivitas = dao.getAktivitasTerbaru(ID_PEMINJAM);
+        List<String[]> aktivitas =
+                dao.getAktivitasTerbaru(idPeminjam);
+
         aktivitasContainer.getChildren().clear();
 
-        for (String[] a : aktivitas) {
-            Label lbl = new Label(
-                a[0] + " • " + a[1] + " • " + a[2]
+        for (String[] data : aktivitas) {
+            aktivitasContainer.getChildren().add(
+                    createAktivitasItem(
+                            data[0], // nama ruangan
+                            data[1], // status
+                            data[2]  // tanggal
+                    )
             );
-            lbl.setStyle("-fx-padding: 8;");
-            aktivitasContainer.getChildren().add(lbl);
+        }
+    }
+
+    // ================= AKTIVITAS ITEM (DESAIN) =================
+
+    private VBox createAktivitasItem(
+            String namaRuangan,
+            String status,
+            String tanggal
+    ) {
+        Label lblInfo = new Label(
+                "Ruang " + namaRuangan + " - " + status
+        );
+        lblInfo.setStyle("-fx-font-size: 16px;");
+
+        Label lblTanggal = new Label(tanggal);
+        lblTanggal.setStyle(
+                "-fx-text-fill: #777777; -fx-font-size: 12px;"
+        );
+
+        Label lblStatus = new Label(status);
+        lblStatus.setStyle(getStatusStyle(status));
+
+        VBox box = new VBox(lblInfo, lblTanggal, lblStatus);
+        box.setSpacing(6);
+        box.setStyle(
+                "-fx-background-color: white;" +
+                "-fx-padding: 12;" +
+                "-fx-background-radius: 10;"
+        );
+
+        return box;
+    }
+
+    private String getStatusStyle(String status) {
+        switch (status.toLowerCase()) {
+            case "disetujui":
+                return "-fx-background-color: #e6f4ea;" +
+                       "-fx-text-fill: #2e7d32;" +
+                       "-fx-padding: 4 12;" +
+                       "-fx-background-radius: 12;";
+            case "menunggu":
+                return "-fx-background-color: #fff4e5;" +
+                       "-fx-text-fill: #ff8f00;" +
+                       "-fx-padding: 4 12;" +
+                       "-fx-background-radius: 12;";
+            case "ditolak":
+                return "-fx-background-color: #fdecea;" +
+                       "-fx-text-fill: #c62828;" +
+                       "-fx-padding: 4 12;" +
+                       "-fx-background-radius: 12;";
+            default:
+                return "-fx-background-color: #eeeeee;" +
+                       "-fx-padding: 4 12;" +
+                       "-fx-background-radius: 12;";
         }
     }
 }
