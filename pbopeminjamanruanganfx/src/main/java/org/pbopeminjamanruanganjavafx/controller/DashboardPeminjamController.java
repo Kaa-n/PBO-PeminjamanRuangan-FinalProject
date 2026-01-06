@@ -20,9 +20,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class DashboardPeminjamController {
-
-    // ================= NAVIGATION =================
-
     @FXML
     private void btnAkun() throws IOException {
         App.setRoot("Profile");
@@ -67,16 +64,12 @@ public class DashboardPeminjamController {
         }
     }
 
-    // ================= DASHBOARD COMPONENT =================
-
     @FXML private Label lblTotalPeminjaman;
     @FXML private Label lblDisetujui;
     @FXML private Label lblPending;
     @FXML private Label lblDitolak;
 
     @FXML private VBox aktivitasContainer;
-
-    // ================= INITIALIZE =================
 
     @FXML
     public void initialize() {
@@ -90,13 +83,10 @@ public class DashboardPeminjamController {
         loadDashboard(userLogin.getIdUser());
     }
 
-    // ================= LOAD DASHBOARD =================
-
     private void loadDashboard(int idPeminjam) {
         Connection conn = DatabaseConnection.getConnection();
         DashboardPeminjamDAO dao = new DashboardPeminjamDAO(conn);
 
-        // ===== CARD DATA =====
         lblTotalPeminjaman.setText(
                 String.valueOf(dao.countAll(idPeminjam))
         );
@@ -110,7 +100,6 @@ public class DashboardPeminjamController {
                 String.valueOf(dao.countByStatus(idPeminjam, "ditolak"))
         );
 
-        // ===== AKTIVITAS TERBARU =====
         List<String[]> aktivitas =
                 dao.getAktivitasTerbaru(idPeminjam);
 
@@ -119,16 +108,13 @@ public class DashboardPeminjamController {
         for (String[] data : aktivitas) {
             aktivitasContainer.getChildren().add(
                     createAktivitasItem(
-                            data[0], // nama ruangan
-                            data[1], // status
-                            data[2]  // tanggal
+                            data[0],
+                            data[1], 
+                            data[2]  
                     )
             );
         }
     }
-
-    // ================= AKTIVITAS ITEM (DESAIN) =================
-
     private VBox createAktivitasItem(
             String namaRuangan,
             String status,

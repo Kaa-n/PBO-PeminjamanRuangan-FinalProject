@@ -180,7 +180,7 @@
                                                             <Font name="Century Gothic Bold" size="18.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lblTotalUser" contentDisplay="CENTER" prefHeight="31.0" prefWidth="79.0" text="4" textAlignment="CENTER">
+                                                      <Label fx:id="txtTotalUser" contentDisplay="CENTER" prefHeight="31.0" prefWidth="79.0" text="4" textAlignment="CENTER">
                                                          <font>
                                                             <Font name="Century Gothic Bold" size="18.0" />
                                                          </font>

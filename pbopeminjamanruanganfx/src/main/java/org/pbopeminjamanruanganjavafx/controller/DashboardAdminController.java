@@ -119,9 +119,9 @@ public class DashboardAdminController implements Initializable {
         for (String[] data : dao.getAktivitasTerbaru()) {
             aktivitasContainer.getChildren().add(
                     createAktivitasItem(
-                            data[0], // nama ruangan
-                            data[1], // status
-                            data[2]  // tanggal
+                            data[0],
+                            data[1], 
+                            data[2]  
                     )
             );
         }
