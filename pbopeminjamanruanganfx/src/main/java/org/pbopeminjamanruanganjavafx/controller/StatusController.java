@@ -27,61 +27,93 @@ import javafx.stage.Stage;
 
 public class StatusController implements Initializable {
 
-    @FXML private TableView<Peminjaman> tabelStatus;
+    @FXML
+    private TableView<Peminjaman> tabelStatus;
 
-    @FXML private Label lblPeminjam; 
-    @FXML private Label lblKegiatan;
-    
-    // Pastikan tipe generic keduanya <Peminjaman, String> karena kita akan ubah semua jadi teks
-    @FXML private TableColumn<Peminjaman, String> colNamaRuangan;
-    @FXML private TableColumn<Peminjaman, String> colTanggal;
-    @FXML private TableColumn<Peminjaman, String> colJam;
-    @FXML private TableColumn<Peminjaman, String> colJumlahPeserta;
-    @FXML private TableColumn<Peminjaman, String> colKontak; 
-    @FXML private TableColumn<Peminjaman, String> colNote;
+    @FXML
+    private Label lblPeminjam;
+    @FXML
+    private Label lblKegiatan;
+
+    // Pastikan tipe generic keduanya <Peminjaman, String> karena kita akan ubah
+    // semua jadi teks
+    @FXML
+    private TableColumn<Peminjaman, String> colNamaRuangan;
+    @FXML
+    private TableColumn<Peminjaman, String> colTanggal;
+    @FXML
+    private TableColumn<Peminjaman, String> colJam;
+    @FXML
+    private TableColumn<Peminjaman, String> colJumlahPeserta;
+    @FXML
+    private TableColumn<Peminjaman, String> colKontak;
+    @FXML
+    private TableColumn<Peminjaman, String> colNote;
+    @FXML
+    private TableColumn<Peminjaman, String> colStatus;
 
     private ObservableList<Peminjaman> listPeminjaman = FXCollections.observableArrayList();
     private PeminjamanUserDAO peminjamanDAO = new PeminjamanUserDAO();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
         // --- CARA BINDING DATA POJO (Non-Property) ---
-        
+
         // 1. Nama Ruangan (Ambil dari getNamaRuangan)
-        colNamaRuangan.setCellValueFactory(data -> 
-            new SimpleStringProperty(data.getValue().getNamaRuangan()));
+        colNamaRuangan.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNamaRuangan()));
 
         // 2. Tanggal
-        colTanggal.setCellValueFactory(data -> 
-            new SimpleStringProperty(data.getValue().getTanggal()));
+        colTanggal.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTanggal()));
 
         // 3. Jam
-        colJam.setCellValueFactory(data -> 
-            new SimpleStringProperty(data.getValue().getJam()));
+        colJam.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getJam()));
 
         // 4. Jumlah Peserta (Int diubah jadi String + " Orang")
-        colJumlahPeserta.setCellValueFactory(data -> 
-            new SimpleStringProperty(data.getValue().getJumlahPeserta() + " Orang"));
+        colJumlahPeserta
+                .setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getJumlahPeserta() + " Orang"));
 
         // 5. Note / Keterangan
-        colNote.setCellValueFactory(data -> 
-            new SimpleStringProperty(data.getValue().getNote()));
+        colNote.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNote()));
 
         // 6. Kontak (Masalah: Di Model Anda BELUM ADA getter untuk kontak)
         // Sementara kita isi strip "-" dulu agar tidak error
         colKontak.setCellValueFactory(data -> new SimpleStringProperty("-"));
+
+        colStatus.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStatus()));
+        colStatus.setCellFactory(column -> new javafx.scene.control.TableCell<Peminjaman, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+
+                    // Cek Status dan Ganti Warna
+                    if (item.equalsIgnoreCase("Disetujui")) {
+                        setStyle("-fx-text-fill: green; -fx-font-weight: bold;");
+                    } else if (item.equalsIgnoreCase("Ditolak")) {
+                        setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+                    } else {
+                        // Untuk status "Menunggu" atau "Selesai"
+                        setStyle("-fx-text-fill: orange; -fx-font-weight: bold;");
+                    }
+                }
+            }
+        });
 
         // --- LOAD DATA ---
         loadData();
         tabelStatus.setItems(listPeminjaman);
     }
 
-        private void loadData() {
+    private void loadData() {
         listPeminjaman.clear();
         // TODO: Ganti angka 3 dengan UserSession.getUserId() nanti
-        listPeminjaman.addAll(peminjamanDAO.getPeminjamanSaya(3)); 
-        
+        listPeminjaman.addAll(peminjamanDAO.getPeminjamanSaya(3));
+
         // Panggil refresh header setiap kali data dimuat
         refreshHeader();
     }
@@ -153,7 +185,8 @@ public class StatusController implements Initializable {
     }
 
     @FXML
-    public void btnBatalkanPeminjaman(ActionEvent event) { 
+    public void btnBatalkanPeminjaman(ActionEvent event) {
+        // 1. Ambil data terpilih
         Peminjaman selectedData = tabelStatus.getSelectionModel().getSelectedItem();
 
         if (selectedData == null) {
@@ -161,24 +194,36 @@ public class StatusController implements Initializable {
             return;
         }
 
+        // --- TAMBAHAN LOGIKA VALIDASI STATUS ---
+        // Kita cek: Apakah statusnya BUKAN "Menunggu"?
+        // Gunakan equalsIgnoreCase agar tidak peduli huruf besar/kecil
+        if (!"Menunggu".equalsIgnoreCase(selectedData.getStatus())) {
+
+            // Jika statusnya Disetujui, Ditolak, atau Selesai -> Tampilkan Error
+            showAlert("Akses Ditolak",
+                    "Anda tidak dapat membatalkan peminjaman ini karena statusnya sudah: " + selectedData.getStatus() +
+                            ".\nHanya peminjaman berstatus 'Menunggu' yang dapat dibatalkan.",
+                    Alert.AlertType.ERROR);
+            return; // BERHENTI DI SINI (Jangan lanjut ke proses hapus)
+        }
+        // ---------------------------------------
+
+        // 2. Konfirmasi (Hanya jalan jika status == Menunggu)
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("Konfirmasi Pembatalan");
         confirm.setHeaderText(null);
-        confirm.setContentText("Apakah Anda yakin ingin membatalkan peminjaman ruangan " + selectedData.getNamaRuangan() + "?");
+        confirm.setContentText(
+                "Apakah Anda yakin ingin membatalkan pengajuan ruangan " + selectedData.getNamaRuangan() + "?");
 
         Optional<ButtonType> result = confirm.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            
+
             boolean sukses = peminjamanDAO.batalkanPeminjaman(selectedData.getId());
 
             if (sukses) {
-                // 1. Hapus dari tabel
                 listPeminjaman.remove(selectedData);
-                
-                // 2. UPDATE HEADER LAGI (PENTING!)
-                refreshHeader();
-
-                showAlert("Sukses", "Peminjaman berhasil dibatalkan.", Alert.AlertType.INFORMATION);
+                refreshHeader(); // Update label header
+                showAlert("Sukses", "Pengajuan peminjaman berhasil dibatalkan.", Alert.AlertType.INFORMATION);
             } else {
                 showAlert("Gagal", "Terjadi kesalahan saat membatalkan peminjaman.", Alert.AlertType.ERROR);
             }
@@ -197,7 +242,7 @@ public class StatusController implements Initializable {
         if (!listPeminjaman.isEmpty()) {
             // Ambil data urutan pertama (index 0)
             Peminjaman terbaru = listPeminjaman.get(0);
-            
+
             lblPeminjam.setText(terbaru.getNamaPeminjam());
             lblKegiatan.setText(terbaru.getNote());
         } else {
