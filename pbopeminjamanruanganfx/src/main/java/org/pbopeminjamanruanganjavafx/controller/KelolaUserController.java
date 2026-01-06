@@ -22,10 +22,6 @@ import javafx.scene.control.Alert;
 
 public class KelolaUserController {
 
-    /* =========================
-       FXML FIELD (WAJIB DI ATAS)
-       ========================= */
-
     @FXML private VBox boxNomorInduk;
     @FXML private VBox boxProdi;
 
@@ -41,15 +37,9 @@ public class KelolaUserController {
 
     @FXML private ScrollPane contentScrollPane;
     @FXML private FlowPane flowPaneRuangan1;
-
-    /* =========================
-       INITIALIZE
-       ========================= */
-
     @FXML
     public void initialize() {
 
-        // sembunyikan field peminjam di awal
         boxNomorInduk.setManaged(false);
         boxNomorInduk.setVisible(false);
 
@@ -57,6 +47,7 @@ public class KelolaUserController {
         boxProdi.setVisible(false);
 
         initComboBoxPeran();
+        refreshTotalUser();
 
         comboBoxPeran.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
@@ -65,10 +56,11 @@ public class KelolaUserController {
         });
     }
 
-    /* =========================
-       LOGIKA ROLE
-       ========================= */
-
+    private void refreshTotalUser() {
+        KelolaUserDAO dao = new KelolaUserDAO();
+        int total = dao.getTotalUserCount();
+        txtTotalUser.setText(String.valueOf(total));
+    }
     private void initComboBoxPeran() {
     comboBoxPeran.getItems().clear();
 
@@ -79,12 +71,10 @@ public class KelolaUserController {
 
     String roleLogin = UserSession.getUser().getRole();
 
-    // === PEMINJAM TIDAK BOLEH BUAT USER ===
     if ("peminjam".equalsIgnoreCase(roleLogin)) {
         return;
     }
 
-    // === ADMIN ===
     if ("admin".equalsIgnoreCase(roleLogin)) {
 
         String adminLevel = UserSession.getAdminLevel();
@@ -96,7 +86,7 @@ public class KelolaUserController {
                 "user"
             );
         } else {
-            // staf
+
             comboBoxPeran.getItems().add("user");
         }
     }
@@ -114,10 +104,6 @@ public class KelolaUserController {
         boxProdi.setManaged(isUser);
         boxProdi.setVisible(isUser);
     }
-
-    /* =========================
-       BUTTON NAVIGATION
-       ========================= */
 
     @FXML
     void btnAkun(ActionEvent event) {
@@ -187,7 +173,6 @@ public class KelolaUserController {
             return;
         }
 
-        // role tabel user
         String roleUser = "user".equalsIgnoreCase(peran) ? "peminjam" : "admin";
 
         int idUser = dao.insertUser(nama, username, email, roleUser);
@@ -195,7 +180,7 @@ public class KelolaUserController {
         if ("user".equalsIgnoreCase(peran)) {
             dao.insertPeminjam(idUser, nim, prodi);
         } else {
-            dao.insertAdmin(idUser, peran); // super_admin / staf
+            dao.insertAdmin(idUser, peran); 
         }
 
         showAlert("Sukses", "Akun berhasil dibuat\nPassword default: 12345678");
