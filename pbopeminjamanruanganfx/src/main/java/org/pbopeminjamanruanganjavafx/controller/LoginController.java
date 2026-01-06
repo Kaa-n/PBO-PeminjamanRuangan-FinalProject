@@ -7,6 +7,7 @@ import org.pbopeminjamanruanganjavafx.dao.UserDAO;
 import org.pbopeminjamanruanganjavafx.model.Admin;
 import org.pbopeminjamanruanganjavafx.model.Peminjam;
 import org.pbopeminjamanruanganjavafx.model.User;
+import org.pbopeminjamanruanganjavafx.util.UserSession;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,6 +53,7 @@ public class LoginController {
             if (userLogin != null) {
                 // Login Sukses
                 try {
+                UserSession.setUser(userLogin);
                 bukaDashboard(userLogin.getDashboardFxml(), userLogin.getDashboardTitle());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -69,6 +71,7 @@ public class LoginController {
         Parent root = fxmlLoader.load();
 
         Scene scene = new Scene(root);
+        App.setScene(scene);
         stage.setScene(scene);
         stage.setTitle(title);
         

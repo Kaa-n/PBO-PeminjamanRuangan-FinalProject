@@ -4,7 +4,7 @@ public class Peminjam extends User {
     public Peminjam(int idUser, String username, String role) {
         super(idUser, username, role);
     }
-    // Metode khusus peminjam ditambahkan di sini
+    
 
     @Override
     public String getDashboardFxml() {
@@ -13,6 +13,6 @@ public class Peminjam extends User {
 
     @Override
     public String getDashboardTitle() {
-        return "Dashboard Peminjam";
+        return "Peminjam SIPIRANG";
     }
 }

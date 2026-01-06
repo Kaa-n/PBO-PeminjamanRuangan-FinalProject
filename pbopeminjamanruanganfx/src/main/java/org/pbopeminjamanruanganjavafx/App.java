@@ -18,11 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-<<<<<<< HEAD
-        scene = new Scene(loadFXML("admin_detail_peminjaman"));
-=======
         scene = new Scene(loadFXML("dashboard_admin_new"));
->>>>>>> 6df9bab1e69b43442d4ae1af36dd575a23d3a6b9
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         Image icon = new Image(getClass().getResourceAsStream("/images/Container (2).png"));
         stage.getIcons().add(icon);
@@ -35,6 +31,10 @@ public class App extends Application {
 
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
+    }
+
+    public static void setScene(Scene newScene) {
+        scene = newScene;
     }
 
     public static Parent loadFXML(String fxml) throws IOException {
