@@ -44,4 +44,23 @@ public class UserDAO {
         }
         return null; // Login gagal
     }
+    public String[] getNamaEmailById(int idUser) {
+    String sql = "SELECT nama, email FROM user WHERE id_user = ?";
+    Connection conn = DatabaseConnection.getConnection();
+
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, idUser);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return new String[] {
+                rs.getString("nama"),
+                rs.getString("email")
+            };
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return null;
+}
 }

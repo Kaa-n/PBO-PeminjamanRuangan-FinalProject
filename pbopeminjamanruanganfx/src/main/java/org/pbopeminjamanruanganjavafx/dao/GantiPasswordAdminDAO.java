@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import org.pbopeminjamanruanganjavafx.config.DatabaseConnection;
 import org.pbopeminjamanruanganjavafx.model.GantiPassword;
 
-public class GantiPasswordDAO {
+public class GantiPasswordAdminDAO {
 
     public boolean updatePassword(GantiPassword data) throws SQLException {
         // Query disesuaikan dengan struktur tabel 'user' di UserDAO Anda

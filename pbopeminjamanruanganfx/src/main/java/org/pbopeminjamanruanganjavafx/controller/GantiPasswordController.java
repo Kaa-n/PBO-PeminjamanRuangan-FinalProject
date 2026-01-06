@@ -1,14 +1,14 @@
 package org.pbopeminjamanruanganjavafx.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import org.pbopeminjamanruanganjavafx.App;
 import org.pbopeminjamanruanganjavafx.dao.GantiPasswordDAO;
 import org.pbopeminjamanruanganjavafx.model.GantiPassword;
 import org.pbopeminjamanruanganjavafx.util.HashSHA;
+import org.pbopeminjamanruanganjavafx.util.UserSession;
 
-import javafx.event.ActionEvent;
+import javafx.event.ActionEvent; // Import session
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -30,7 +30,7 @@ public class GantiPasswordController {
     public void setIdUserLogin(int idUser) {
         this.idUserLogin = idUser;
     }
-    
+
     @FXML
     void btnCloseKataSandi(ActionEvent event) {
         pindahHalaman("Profile");
@@ -42,44 +42,51 @@ public class GantiPasswordController {
         String sandiBaru = txtSandiBaru.getText();
         String konfirmasiSandi = txtKonfirmasiSandi.getText();
 
-        // 1. Validasi Input Kosong
+        // 1. Validasi Input (Tetap sama)
         if (sandiSaatIni.isEmpty() || sandiBaru.isEmpty() || konfirmasiSandi.isEmpty()) {
             tampilkanAlert(Alert.AlertType.WARNING, "Peringatan", "Semua field harus diisi!");
             return;
         }
-
-        // 2. Validasi Konfirmasi Password Baru
         if (!sandiBaru.equals(konfirmasiSandi)) {
             tampilkanAlert(Alert.AlertType.ERROR, "Gagal", "Konfirmasi password tidak cocok!");
             return;
         }
 
+        boolean suksesUpdate = false;
+
+        // --- BLOK KHUSUS DATABASE ---
         try {
-            // 3. Proses Hashing (Sesuaikan nama method .hash() jika berbeda di HashSHA.java)
-            String hashLama = HashSHA.hash(sandiSaatIni);
-            String hashBaru = HashSHA.hash(sandiBaru);
+            int idAktif = UserSession.getUser().getIdUser();
+            String hashLama = HashSHA.konversiHexString(HashSHA.konversiSHA(sandiSaatIni));
+            String hashBaru = HashSHA.konversiHexString(HashSHA.konversiSHA(sandiBaru));
 
-            // 4. Bungkus ke Model (ID user sementara 2)
-            GantiPassword dataModel = new GantiPassword(2, hashLama, hashBaru);
-
-            // 5. Panggil DAO untuk eksekusi ke database
+            GantiPassword dataModel = new GantiPassword(idAktif, hashLama, hashBaru);
             GantiPasswordDAO dao = new GantiPasswordDAO();
-            boolean sukses = dao.updatePassword(dataModel);
-
-            if (sukses) {
-                tampilkanAlert(Alert.AlertType.INFORMATION, "Sukses", "Kata sandi berhasil diperbarui!");
-                pindahHalaman("Profile");
-            } else {
-                tampilkanAlert(Alert.AlertType.ERROR, "Gagal", "Kata sandi saat ini salah!");
-            }
-
-        } catch (SQLException e) {
+            
+            suksesUpdate = dao.updatePassword(dataModel);
+        } catch (Exception e) {
             e.printStackTrace();
             tampilkanAlert(Alert.AlertType.ERROR, "Database Error", "Terjadi kesalahan koneksi database.");
+            return; // Berhenti jika DB error
+        }
+
+        // --- BLOK NAVIGASI DI LUAR TRY DATABASE ---
+        if (suksesUpdate) {
+            tampilkanAlert(Alert.AlertType.INFORMATION, "Sukses", "Kata sandi berhasil diperbarui!");
+            
+            try {
+                // Ini yang bikin error "Database Masalah" palsu kalau file FXML Admin belum ada
+                String fxmlTujuan = UserSession.getUser().getDashboardFxml();
+                App.setRoot(fxmlTujuan);
+            } catch (IOException e) {
+                e.printStackTrace();
+                tampilkanAlert(Alert.AlertType.WARNING, "Navigasi Error", "Sandi berhasil diubah, tapi halaman dashboard '" + UserSession.getUser().getDashboardFxml() + "' belum tersedia.");
+            }
+        } else {
+            tampilkanAlert(Alert.AlertType.ERROR, "Gagal", "Kata sandi saat ini salah!");
         }
     }
 
-    // Helper untuk menampilkan notifikasi ke user
     private void tampilkanAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

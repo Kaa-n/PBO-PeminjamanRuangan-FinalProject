@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxWidth="344.0" prefHeight="579.0" prefWidth="340.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 5);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pbopeminjamanruanganjavafx.ItemRuanganController">
+<VBox maxWidth="344.0" prefHeight="579.0" prefWidth="340.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 5);" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pbopeminjamanruanganjavafx.controller.ItemRuanganController">
    <children>
       <StackPane fx:id="imageContainer" prefHeight="213.0" prefWidth="340.0">
          <children>
@@ -144,7 +143,7 @@
          <children>
             <VBox>
                <children>
-                  <Button fx:id="btnPesan" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" text="Detail dan Peminjaman" />
+                  <Button mnemonicParsing="false" onAction="#btnDetailPengajuan" prefHeight="36.0" prefWidth="187.0" styleClass="btn-tambah-ruangan" text="Detail dan Peminjaman" />
                </children>
                <padding>
                   <Insets right="32.0" />
