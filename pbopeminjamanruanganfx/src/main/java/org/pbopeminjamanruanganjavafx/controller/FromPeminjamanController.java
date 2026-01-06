@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import org.pbopeminjamanruanganjavafx.model.Ruangan;
-
+import org.pbopeminjamanruanganjavafx.model.User;
+import org.pbopeminjamanruanganjavafx.util.UserSession;
 import org.pbopeminjamanruanganjavafx.App;
 import org.pbopeminjamanruanganjavafx.dao.PeminjamanUserDAO;
+import org.pbopeminjamanruanganjavafx.model.Peminjam;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,6 +53,9 @@ public class FromPeminjamanController {
 
     @FXML
     private TextField txtTujuanPeminjaman;
+
+    @FXML
+    private TextField txtNim;
 
     @FXML
     private TextArea txtCatatan;
@@ -102,7 +107,7 @@ public class FromPeminjamanController {
 
     @FXML
     void btnKembali(ActionEvent event) {
-        pindahHalaman("detail_ruangan_dan_jadwal_peminjam");
+        kembaliKeDaftarRuangan();
     }
 
     @FXML
@@ -149,6 +154,36 @@ public class FromPeminjamanController {
         this.ruanganTerpilih = ruangan;
         this.tanggalTerpilih = tanggal;
         // assign final times by default; will be overwritten if user enters manual waktu khusus
+
+        // 1. Ambil ID User yang sedang login
+        int currentUserId = UserSession.getUser().getIdUser();
+
+
+        // 2. Ambil data dari Database
+        PeminjamanUserDAO.DataPemohon data = peminjamanUserDAO.getDetailPemohon(currentUserId);
+
+        if (data != null) {
+            // Isi Nama
+            if (data.nama != null && !data.nama.isEmpty()) {
+                txtNamaLengkap.setText(data.nama);
+                txtNamaLengkap.setDisable(true); // Kunci agar tidak bisa diubah (Opsional)
+            }
+
+            // Isi NIM
+            if (data.nim != null && !data.nim.isEmpty()) {
+                // Pastikan txtNim tidak null (cek FXML)
+                if (txtNim != null) {
+                    txtNim.setText(data.nim);
+                    txtNim.setDisable(true);
+                }
+            }
+            
+            // Catatan untuk Nomor Kontak:
+            // Karena di database tabel 'user' dan 'peminjam' belum ada kolom no_hp,
+            // field ini kita biarkan kosong agar user mengisi manual.
+        }
+
+
         this.jamMulaiFinal = mulai;
         this.jamSelesaiFinal = selesai;
         this.isKhusus = khusus;
@@ -217,7 +252,7 @@ public class FromPeminjamanController {
         }
 
         String noTelepon = txtNomorKontak.getText();
-        String keterangan = "Pemohon: " + txtNamaLengkap.getText() + " | Catatan: " + (txtCatatan != null ? txtCatatan.getText() : "");
+        String keterangan = (txtCatatan != null ? txtCatatan.getText() : "");
  
         // 4. PANGGIL DAO UNTUK SIMPAN KE DATABASE
         boolean berhasil = reservasiDAO.simpanReservasi(

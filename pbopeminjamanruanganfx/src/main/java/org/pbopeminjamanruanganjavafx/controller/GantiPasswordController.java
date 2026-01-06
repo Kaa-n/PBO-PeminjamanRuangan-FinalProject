@@ -8,7 +8,7 @@ import org.pbopeminjamanruanganjavafx.model.GantiPassword;
 import org.pbopeminjamanruanganjavafx.util.HashSHA;
 import org.pbopeminjamanruanganjavafx.util.UserSession;
 
-import javafx.event.ActionEvent; // Import session
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -75,7 +75,6 @@ public class GantiPasswordController {
             tampilkanAlert(Alert.AlertType.INFORMATION, "Sukses", "Kata sandi berhasil diperbarui!");
             
             try {
-                // Ini yang bikin error "Database Masalah" palsu kalau file FXML Admin belum ada
                 String fxmlTujuan = UserSession.getUser().getDashboardFxml();
                 App.setRoot(fxmlTujuan);
             } catch (IOException e) {
@@ -94,7 +93,7 @@ public class GantiPasswordController {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
+        //pindah halaman
     private void pindahHalaman(String namaFxml) {
         try {
             App.setRoot(namaFxml);
