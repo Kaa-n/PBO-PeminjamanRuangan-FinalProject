@@ -7,6 +7,7 @@ import org.pbopeminjamanruanganjavafx.dao.UserDAO;
 import org.pbopeminjamanruanganjavafx.model.Admin;
 import org.pbopeminjamanruanganjavafx.model.Peminjam;
 import org.pbopeminjamanruanganjavafx.model.User;
+import org.pbopeminjamanruanganjavafx.util.UserSession;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,6 +53,7 @@ public class LoginController {
             if (userLogin != null) {
                 // Login Sukses
                 try {
+                UserSession.setUser(userLogin);
                 bukaDashboard(userLogin.getDashboardFxml(), userLogin.getDashboardTitle());
             } catch (IOException e) {
                 e.printStackTrace();
