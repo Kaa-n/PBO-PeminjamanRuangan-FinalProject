@@ -5,7 +5,6 @@ public class Peminjam extends User {
         super(idUser, username, role);
     }
     
-
     @Override
     public String getDashboardFxml() {
         return "dashboard_peminjam_new.fxml"; 

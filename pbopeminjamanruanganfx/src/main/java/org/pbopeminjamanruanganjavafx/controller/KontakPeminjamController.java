@@ -83,7 +83,6 @@ public class KontakPeminjamController {
 
     @FXML
     private void btnKirimPesan(ActionEvent event) {
-
         String nama = txtNama.getText();
         String email = txtEmail.getText();
         String subjek = txtSubjek.getText();
@@ -94,32 +93,32 @@ public class KontakPeminjamController {
             return;
         }
 
+        // Cek apakah user sudah login
+        User user = UserSession.getUser();
+        if (user == null) {
+            showAlert("Error", "Anda harus login untuk mengirim pesan.");
+            return;
+        }
+
         try {
             Kontak kontak = new Kontak();
+            kontak.setIdUser(user.getIdUser());
             kontak.setNama(nama);
             kontak.setEmail(email);
             kontak.setSubjek(subjek);
             kontak.setPesan(pesan);
-
-            User user = UserSession.getUser();
-            if (user != null) {
-            kontak.setIdUser(user.getIdUser());
-            }
 
             Connection conn = DatabaseConnection.getConnection();
             KontakDAO kontakDAO = new KontakDAO(conn);
             kontakDAO.insert(kontak);
 
             showAlert("Sukses", "Pesan berhasil dikirim.");
-
-            txtNama.clear();
-            txtEmail.clear();
             txtSubjek.clear();
             txtPesan.clear();
 
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Error", "Gagal mengirim pesan.");
+            showAlert("Error", "Gagal mengirim pesan: " + e.getMessage());
         }
     }
     private void showAlert(String title, String message) {
