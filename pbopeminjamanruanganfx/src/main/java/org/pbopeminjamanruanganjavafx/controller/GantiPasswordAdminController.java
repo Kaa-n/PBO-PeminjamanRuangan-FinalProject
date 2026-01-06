@@ -68,7 +68,6 @@ public class GantiPasswordAdminController {
             tampilkanAlert(Alert.AlertType.INFORMATION, "Sukses", "Kata sandi berhasil diperbarui!");
             
             try {
-                // Ini yang bikin error "Database Masalah" palsu kalau file FXML Admin belum ada
                 String fxmlTujuan = UserSession.getUser().getDashboardFxml();
                 App.setRoot(fxmlTujuan);
             } catch (IOException e) {
