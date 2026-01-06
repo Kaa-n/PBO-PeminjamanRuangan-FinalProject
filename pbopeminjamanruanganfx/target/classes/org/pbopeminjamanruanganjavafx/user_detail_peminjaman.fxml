@@ -137,12 +137,12 @@
                               </Label>
                               <VBox prefHeight="53.0" prefWidth="1140.0">
                                  <children>
-                                    <Label text="Guna Januarta">
+                                    <Label fx:id="lblPeminjam" text="Guna Januarta">
                                        <font>
                                           <Font name="Century Gothic Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label text="Praktikum Pemrograman Berbasis Objek" />
+                                    <Label fx:id="lblKegiatan" text="Praktikum Pemrograman Berbasis Objek" />
                                  </children>
                                  <VBox.margin>
                                     <Insets left="40.0" />
@@ -153,14 +153,14 @@
                                     <Insets bottom="13.0" left="40.0" right="40.0" />
                                  </VBox.margin>
                                  <children>
-                                    <TableView prefHeight="137.0" prefWidth="1098.0">
+                                    <TableView fx:id="tabelStatus" prefHeight="137.0" prefWidth="1098.0">
                                       <columns>
-                                        <TableColumn prefWidth="194.00001275539398" text="Nama Ruangan" />
-                                        <TableColumn prefWidth="142.00001525878906" text="Tanggal" />
-                                          <TableColumn prefWidth="163.99993896484375" text="Jam" />
-                                          <TableColumn prefWidth="192.88894653320312" text="Jumlah Peserta" />
-                                          <TableColumn prefWidth="209.77783203125" text="Kontak" />
-                                          <TableColumn prefWidth="195.55535888671875" text="Note" />
+                                        <TableColumn fx:id="colNamaRuangan" prefWidth="194.00001275539398" text="Nama Ruangan" />
+                                        <TableColumn fx:id="colTanggal" prefWidth="142.00001525878906" text="Tanggal" />
+                                          <TableColumn fx:id="colJam" prefWidth="163.99993896484375" text="Jam" />
+                                          <TableColumn fx:id="colJumlahPeserta" prefWidth="192.88894653320312" text="Jumlah Peserta" />
+                                          <TableColumn fx:id="colKontak" prefWidth="209.77783203125" text="Kontak" />
+                                          <TableColumn fx:id="colNote" prefWidth="195.55535888671875" text="Note" />
                                       </columns>
                                     </TableView>
                                  </children>

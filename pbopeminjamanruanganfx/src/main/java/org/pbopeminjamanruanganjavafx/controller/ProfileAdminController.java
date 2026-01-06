@@ -33,7 +33,7 @@ public class ProfileAdminController {
 
     @FXML
     void btnGantiKataSandi(ActionEvent event) {
-        pindahHalaman("ganti_password");
+        pindahHalaman("ganti_password_admin");
     }
 
     @FXML

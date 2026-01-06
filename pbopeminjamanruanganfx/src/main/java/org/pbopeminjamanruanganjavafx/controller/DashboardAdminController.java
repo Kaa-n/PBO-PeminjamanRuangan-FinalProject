@@ -9,14 +9,25 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class DashboardAdminController {
 
+    @FXML private Label lblTotalRuangan;
+    @FXML private Label lblTotalPeminjaman;
+    @FXML private Label lblDisetujui;
+    @FXML private Label lblPending;
+    @FXML private Label lblDitolak;
+
+    @FXML private VBox aktivitasContainer;
+  
+
     @FXML
     private void btnAkun() throws IOException {
         try {
-            App.setRoot("Profile");
+            App.setRoot("profile_admin");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,7 +81,6 @@ public class DashboardAdminController {
             stage.setScene(scene);
             stage.setTitle("LOGIN SIPIRANG");
 
-            // Kembalikan kemampuan resize window untuk dashboard
             stage.setResizable(false);
             stage.centerOnScreen();
         } catch (IOException e) {
@@ -87,4 +97,13 @@ public class DashboardAdminController {
         }
     }
 
+    @FXML
+    private void initialize() {
+        // Dummy sementara agar tidak null & tidak error
+        if (lblTotalRuangan != null) lblTotalRuangan.setText("0");
+        if (lblTotalPeminjaman != null) lblTotalPeminjaman.setText("0");
+        if (lblDisetujui != null) lblDisetujui.setText("0");
+        if (lblPending != null) lblPending.setText("0");
+        if (lblDitolak != null) lblDitolak.setText("0");
+    }
 }
