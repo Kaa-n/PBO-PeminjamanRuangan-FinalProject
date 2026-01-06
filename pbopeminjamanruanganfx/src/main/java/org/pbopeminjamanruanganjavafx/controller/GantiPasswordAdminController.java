@@ -29,12 +29,6 @@ public class GantiPasswordAdminController {
 
     }
 
-
-
-
-
-
-
      //pindah halaman
     private void pindahHalaman(String namaFxml) {
         try {

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxWidth="344.0" prefHeight="579.0" prefWidth="340.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 5);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pbopeminjamanruanganjavafx.ItemRuanganController">
+<VBox maxWidth="344.0" prefHeight="579.0" prefWidth="340.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 5);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pbopeminjamanruanganjavafx.controller.ItemKelolaRuanganController">
    <children>
       <StackPane fx:id="imageContainer" prefHeight="213.0" prefWidth="340.0">
          <children>

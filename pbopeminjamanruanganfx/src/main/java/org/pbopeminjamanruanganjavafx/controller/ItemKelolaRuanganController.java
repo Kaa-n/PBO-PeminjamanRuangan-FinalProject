@@ -55,5 +55,14 @@ public class ItemKelolaRuanganController {
         }
     }
 
+    
+    public void setData(String nama, String deskripsi, int kapasitas, String status) {
+        lblNamaRuangan.setText(nama);
+        lblDeskripsi.setText(deskripsi);
+        lblKapasitas.setText("Kapasitas: " + kapasitas + " orang");
+        lblStatus.setText("Status: " + status);
+    }
+
+
 
 }
