@@ -1,18 +1,28 @@
 package org.pbopeminjamanruanganjavafx.controller;
 
+import java.io.IOException;
 import java.net.URL; // Penting!
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import org.pbopeminjamanruanganjavafx.App;
 import org.pbopeminjamanruanganjavafx.dao.PeminjamanUserDAO;
 import org.pbopeminjamanruanganjavafx.model.Peminjaman;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 public class StatusController implements Initializable {
 
@@ -66,6 +76,112 @@ public class StatusController implements Initializable {
     private void loadData() {
         listPeminjaman.clear();
         // Ganti ID user sesuai user yang login nanti
-        listPeminjaman.addAll(peminjamanDAO.getPeminjamanSaya(1)); 
+        listPeminjaman.addAll(peminjamanDAO.getPeminjamanSaya(3)); 
+    }
+
+    @FXML
+    private void btnAkun() throws IOException {
+        try {
+            App.setRoot("Profile");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnStatus(ActionEvent event) {
+        try {
+            App.setRoot("user_detail_peminjaman");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnBeranda() throws IOException {
+        try {
+            App.setRoot("dashboard_peminjam_new");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnRuangan() throws IOException {
+        try {
+            App.setRoot("ruangan_peminjam");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnKeluar(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
+            Parent root = fxmlLoader.load();
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Login");
+
+            // Kembalikan kemampuan resize window untuk dashboard
+            stage.setResizable(false);
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnKontak(ActionEvent event) {
+        try {
+            App.setRoot("kontak_user");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    public void btnBatalkanPeminjaman (ActionEvent event) { // Pastikan nama method sama dengan onAction di FXML
+        Peminjaman selectedData = tabelStatus.getSelectionModel().getSelectedItem();
+
+        if (selectedData == null) {
+            showAlert("Peringatan", "Pilih dulu data yang ingin dibatalkan!", Alert.AlertType.WARNING);
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Konfirmasi Pembatalan");
+        confirm.setHeaderText(null);
+        
+        confirm.setContentText("Apakah Anda yakin ingin membatalkan peminjaman ruangan " + selectedData.getNamaRuangan() + "?");
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            
+            // PERBAIKAN DI SINI:
+            // Pastikan method getter ID di Model Anda namanya getId() atau getIdReservasi()
+            // Di Model POJO sebelumnya namanya getId()
+            boolean sukses = peminjamanDAO.batalkanPeminjaman(selectedData.getId());
+
+            if (sukses) {
+                listPeminjaman.remove(selectedData);
+                showAlert("Sukses", "Peminjaman berhasil dibatalkan.", Alert.AlertType.INFORMATION);
+            } else {
+                showAlert("Gagal", "Terjadi kesalahan saat membatalkan peminjaman.", Alert.AlertType.ERROR);
+            }
+        }
+    }
+
+    private void showAlert(String title, String content, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
