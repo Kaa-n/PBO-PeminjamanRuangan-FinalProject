@@ -7,6 +7,9 @@ import org.pbopeminjamanruanganjavafx.App;
 import org.pbopeminjamanruanganjavafx.config.DatabaseConnection;
 import org.pbopeminjamanruanganjavafx.dao.KontakDAO;
 import org.pbopeminjamanruanganjavafx.model.Kontak;
+import org.pbopeminjamanruanganjavafx.util.UserSession;
+import org.pbopeminjamanruanganjavafx.dao.UserDAO;
+import org.pbopeminjamanruanganjavafx.model.User;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -98,6 +101,11 @@ public class KontakPeminjamController {
             kontak.setSubjek(subjek);
             kontak.setPesan(pesan);
 
+            User user = UserSession.getUser();
+            if (user != null) {
+            kontak.setIdUser(user.getIdUser());
+            }
+
             Connection conn = DatabaseConnection.getConnection();
             KontakDAO kontakDAO = new KontakDAO(conn);
             kontakDAO.insert(kontak);
@@ -120,5 +128,22 @@ public class KontakPeminjamController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    @FXML
+    public void initialize() {
+        User user = UserSession.getUser();
+
+            if (user != null) {
+                UserDAO userDAO = new UserDAO();
+                String[] data = userDAO.getNamaEmailById(user.getIdUser());
+
+            if (data != null) {
+                txtNama.setText(data[0]);
+                txtEmail.setText(data[1]);
+
+                txtNama.setEditable(false);
+                txtEmail.setEditable(false);
+            }
+        }
     }
 }

@@ -1,0 +1,75 @@
+package org.pbopeminjamanruanganjavafx.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DashboardPeminjamDAO {
+
+    private final Connection connection;
+
+    public DashboardPeminjamDAO(Connection connection) {
+        this.connection = connection;
+    }
+
+    public int countAll(int idPeminjam) {
+        String sql = "SELECT COUNT(*) FROM reservasi WHERE id_peminjam = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, idPeminjam);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int countByStatus(int idPeminjam, String status) {
+        String sql = "SELECT COUNT(*) FROM reservasi "
+                   + "WHERE id_peminjam = ? AND status = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, idPeminjam);
+            ps.setString(2, status);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public List<String[]> getAktivitasTerbaru(int idPeminjam) {
+        List<String[]> list = new ArrayList<>();
+
+        String sql = "SELECT r.status, ru.nama_ruangan, r.tanggal_pengajuan "
+                   + "FROM reservasi r "
+                   + "JOIN ruangan ru ON r.id_ruangan = ru.id_ruangan "
+                   + "WHERE r.id_peminjam = ? "
+                   + "ORDER BY r.tanggal_pengajuan DESC "
+                   + "LIMIT 3";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, idPeminjam);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new String[] {
+                    rs.getString("nama_ruangan"),
+                    rs.getString("status"),
+                    rs.getTimestamp("tanggal_pengajuan").toString()
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+}

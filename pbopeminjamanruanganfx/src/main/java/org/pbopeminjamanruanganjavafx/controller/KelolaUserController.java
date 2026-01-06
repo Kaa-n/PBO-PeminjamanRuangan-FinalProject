@@ -47,7 +47,7 @@ public class KelolaUserController {
 
     @FXML
     void btnAkun(ActionEvent event) {
-        pindahHalaman("Profile");
+        pindahHalaman("profile_admin");
     }
 
     @FXML
