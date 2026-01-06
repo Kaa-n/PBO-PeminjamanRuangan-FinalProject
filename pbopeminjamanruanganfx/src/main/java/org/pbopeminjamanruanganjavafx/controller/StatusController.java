@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -27,6 +28,9 @@ import javafx.stage.Stage;
 public class StatusController implements Initializable {
 
     @FXML private TableView<Peminjaman> tabelStatus;
+
+    @FXML private Label lblPeminjam; 
+    @FXML private Label lblKegiatan;
     
     // Pastikan tipe generic keduanya <Peminjaman, String> karena kita akan ubah semua jadi teks
     @FXML private TableColumn<Peminjaman, String> colNamaRuangan;
@@ -73,10 +77,13 @@ public class StatusController implements Initializable {
         tabelStatus.setItems(listPeminjaman);
     }
 
-    private void loadData() {
+        private void loadData() {
         listPeminjaman.clear();
-        // Ganti ID user sesuai user yang login nanti
+        // TODO: Ganti angka 3 dengan UserSession.getUserId() nanti
         listPeminjaman.addAll(peminjamanDAO.getPeminjamanSaya(3)); 
+        
+        // Panggil refresh header setiap kali data dimuat
+        refreshHeader();
     }
 
     @FXML
@@ -146,7 +153,7 @@ public class StatusController implements Initializable {
     }
 
     @FXML
-    public void btnBatalkanPeminjaman (ActionEvent event) { // Pastikan nama method sama dengan onAction di FXML
+    public void btnBatalkanPeminjaman(ActionEvent event) { 
         Peminjaman selectedData = tabelStatus.getSelectionModel().getSelectedItem();
 
         if (selectedData == null) {
@@ -157,19 +164,20 @@ public class StatusController implements Initializable {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("Konfirmasi Pembatalan");
         confirm.setHeaderText(null);
-        
         confirm.setContentText("Apakah Anda yakin ingin membatalkan peminjaman ruangan " + selectedData.getNamaRuangan() + "?");
 
         Optional<ButtonType> result = confirm.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             
-            // PERBAIKAN DI SINI:
-            // Pastikan method getter ID di Model Anda namanya getId() atau getIdReservasi()
-            // Di Model POJO sebelumnya namanya getId()
             boolean sukses = peminjamanDAO.batalkanPeminjaman(selectedData.getId());
 
             if (sukses) {
+                // 1. Hapus dari tabel
                 listPeminjaman.remove(selectedData);
+                
+                // 2. UPDATE HEADER LAGI (PENTING!)
+                refreshHeader();
+
                 showAlert("Sukses", "Peminjaman berhasil dibatalkan.", Alert.AlertType.INFORMATION);
             } else {
                 showAlert("Gagal", "Terjadi kesalahan saat membatalkan peminjaman.", Alert.AlertType.ERROR);
@@ -183,5 +191,19 @@ public class StatusController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    private void refreshHeader() {
+        if (!listPeminjaman.isEmpty()) {
+            // Ambil data urutan pertama (index 0)
+            Peminjaman terbaru = listPeminjaman.get(0);
+            
+            lblPeminjam.setText(terbaru.getNamaPeminjam());
+            lblKegiatan.setText(terbaru.getNote());
+        } else {
+            // Jika data kosong
+            lblPeminjam.setText("-");
+            lblKegiatan.setText("Tidak ada aktivitas");
+        }
     }
 }
