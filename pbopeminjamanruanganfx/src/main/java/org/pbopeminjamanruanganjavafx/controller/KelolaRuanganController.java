@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.pbopeminjamanruanganjavafx.App;
+import org.pbopeminjamanruanganjavafx.dao.KelolaRuanganDAO;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -104,47 +105,30 @@ public class KelolaRuanganController implements Initializable {
         loadItemRuangan();
     }
 
-        private void loadItemRuangan() {
+    public void loadItemRuangan() {
         flowPaneRuangan.getChildren().clear();
 
-        for (int i = 1; i <= 4; i++) {
+        KelolaRuanganDAO dao = new KelolaRuanganDAO();
+        var listRuangan = dao.getAllRuangan();
+
+        txtTotalRuangan.setText(String.valueOf(listRuangan.size()));
+
+        for (var ruangan : listRuangan) {
             try {
-                // 1. Ambil lokasi file FXML
-                URL fxmlLocation = getClass().getResource("/org/pbopeminjamanruanganjavafx/item_kelola_ruangan.fxml");
-                
-                if (fxmlLocation == null) {
-                    System.err.println("Error: File item_kelola_ruangan.fxml tidak ditemukan!");
-                    continue; 
-                }
+                FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/org/pbopeminjamanruanganjavafx/item_kelola_ruangan.fxml")
+                );
 
-                // 2. Inisialisasi loader dengan lokasi yang benar
-                FXMLLoader loader = new FXMLLoader(fxmlLocation);
-                
-                // 3. Load FXML (Cukup satu kali panggil load())
-                // Pastikan Root di FXML adalah VBox sesuai dengan file Anda
-                VBox card = loader.load(); 
+                VBox card = loader.load();
 
-                // 4. Ambil controller dan isi data
-                // Pastikan di Scene Builder 'Controller Class' sudah diatur ke ItemKelolaRuanganController
                 ItemKelolaRuanganController controller = loader.getController();
+                controller.setData(ruangan, this);
 
-                if (controller != null) {
-                    controller.setData(
-                        "Lab Komputer " + i,
-                        "Laboratorium komputer dengan spesifikasi tinggi untuk praktikum",
-                        40,
-                        "Tersedia"
-                    );
-                }
-
-                // 5. Masukkan ke FlowPane
                 flowPaneRuangan.getChildren().add(card);
 
             } catch (IOException e) {
-                System.err.println("Gagal memuat item ke-" + i);
                 e.printStackTrace();
             }
         }
     }
-
 }

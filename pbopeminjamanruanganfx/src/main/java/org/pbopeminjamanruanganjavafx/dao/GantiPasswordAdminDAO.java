@@ -10,7 +10,6 @@ import org.pbopeminjamanruanganjavafx.model.GantiPassword;
 public class GantiPasswordAdminDAO {
 
     public boolean updatePassword(GantiPassword data) throws SQLException {
-        // Query disesuaikan dengan struktur tabel 'user' di UserDAO Anda
         String sql = "UPDATE user SET password = ? WHERE id_user = ? AND password = ?";
         
         try (Connection conn = DatabaseConnection.getConnection();
