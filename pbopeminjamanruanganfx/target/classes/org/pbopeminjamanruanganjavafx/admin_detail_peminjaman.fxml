@@ -166,12 +166,13 @@
                                  <children>
                                     <TableView fx:id="tblDetailPeminjaman" prefHeight="137.0" prefWidth="1098.0">
                                       <columns>
-                                        <TableColumn prefWidth="194.00001275539398" text="Nama Ruangan" />
-                                        <TableColumn prefWidth="142.00001525878906" text="Tanggal" />
-                                          <TableColumn prefWidth="163.99993896484375" text="Jam" />
-                                          <TableColumn prefWidth="192.88894653320312" text="Jumlah Peserta" />
-                                          <TableColumn prefWidth="209.77783203125" text="Kontak" />
-                                          <TableColumn prefWidth="195.55535888671875" text="Note" />
+                                        <TableColumn fx:id="colNamaRuangan" prefWidth="194.00001275539398" text="Nama Ruangan" />
+                                        <TableColumn fx:id="colTanggal" prefWidth="142.00001525878906" text="Tanggal" />
+                                          <TableColumn fx:id="colJam" prefWidth="163.99993896484375" text="Jam" />
+                                          <TableColumn fx:id="colJumlahPeserta" prefWidth="192.88894653320312" text="Jumlah Peserta" />
+                                          <TableColumn fx:id="colKontak" prefWidth="102.66668701171875" text="Kontak" />
+                                          <TableColumn fx:id="colNote" prefWidth="187.33319091796875" text="Note" />
+                                          <TableColumn fx:id="colStatus" prefWidth="111.33331298828125" text="Status" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -181,7 +182,7 @@
                                     <Insets left="40.0" right="40.0" />
                                  </VBox.margin>
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#btnSetuju" prefHeight="37.0" prefWidth="88.0" style="-fx-background-color: #139659;" styleClass="btn-logout" text="Setujui">
+                                    <Button fx:id="Setujubtn" mnemonicParsing="false" onAction="#btnSetuju" prefHeight="37.0" prefWidth="88.0" style="-fx-background-color: #139659;" styleClass="btn-logout" text="Setujui">
                                        <font>
                                           <Font name="Century Gothic" size="14.0" />
                                        </font>
@@ -189,7 +190,7 @@
                                           <Insets bottom="1.0" />
                                        </padding>
                                     </Button>
-                                    <Button layoutX="11.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnTolak" prefHeight="36.0" prefWidth="88.0" styleClass="btn-logout" text="Tolak">
+                                    <Button fx:id="Tolakbtn" layoutX="11.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnTolak" prefHeight="36.0" prefWidth="88.0" styleClass="btn-logout" text="Tolak">
                                        <font>
                                           <Font name="Century Gothic" size="14.0" />
                                        </font>

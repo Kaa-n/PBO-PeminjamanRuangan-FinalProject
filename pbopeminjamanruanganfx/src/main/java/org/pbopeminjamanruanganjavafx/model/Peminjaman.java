@@ -10,8 +10,8 @@ public class Peminjaman {
     private String status;
     private String note;
 
-    public Peminjaman(int id, String namaPeminjam, String namaRuangan, String tanggal, 
-                      String jam, int jumlahPeserta, String status, String note, String kontak) {
+    public Peminjaman(int id, String namaPeminjam, String namaRuangan, String tanggal,
+            String jam, int jumlahPeserta, String status, String note, String kontak) {
         this.id = id;
         this.namaPeminjam = namaPeminjam;
         this.namaRuangan = namaRuangan;
@@ -20,6 +20,7 @@ public class Peminjaman {
         this.jumlahPeserta = jumlahPeserta;
         this.status = status;
         this.note = note;
+        this.kontak = kontak;
     }
 
     private String kontak; // Field baru
