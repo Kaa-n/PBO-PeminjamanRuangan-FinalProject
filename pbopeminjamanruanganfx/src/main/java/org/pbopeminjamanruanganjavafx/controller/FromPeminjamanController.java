@@ -7,13 +7,16 @@ import java.time.format.DateTimeFormatter;
 import org.pbopeminjamanruanganjavafx.model.Ruangan;
 
 import org.pbopeminjamanruanganjavafx.App;
+import org.pbopeminjamanruanganjavafx.dao.PeminjamanUserDAO;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -48,6 +51,9 @@ public class FromPeminjamanController {
 
     @FXML
     private TextField txtTujuanPeminjaman;
+
+    @FXML
+    private TextArea txtCatatan;
 
     @FXML
     void btnBeranda(ActionEvent event) {
@@ -88,11 +94,11 @@ public class FromPeminjamanController {
         pindahHalaman("detail_ruangan_dan_jadwal_peminjam");
     }
 
-    @FXML
-    void btnKirimPengajuan(ActionEvent event) {
-        pindahHalaman("ruangan_peminjam");
+    // @FXML
+    // void btnKirimPengajuan(ActionEvent event) {
+    //     pindahHalaman("ruangan_peminjam");
 
-    }
+    // }
 
     @FXML
     void btnKembali(ActionEvent event) {
@@ -126,20 +132,25 @@ public class FromPeminjamanController {
 
 
 
-
+    private PeminjamanUserDAO peminjamanUserDAO = new PeminjamanUserDAO();
 
     private Ruangan ruanganTerpilih;
     private LocalDate tanggalTerpilih;
-    private LocalTime jamMulai;
-    private LocalTime jamSelesai;
+    // final times used for DAO (either from standard schedule or manual input)
+    private LocalTime jamMulaiFinal;
+    private LocalTime jamSelesaiFinal;
+    // DAO instance used to persist reservation
+    private PeminjamanUserDAO reservasiDAO = new PeminjamanUserDAO();
+
     private boolean isKhusus;
 
     // --- METHOD INI YANG AKAN DIPANGGIL DARI DETAIL RUANGAN ---
     public void setDataPeminjaman(Ruangan ruangan, LocalDate tanggal, LocalTime mulai, LocalTime selesai, boolean khusus) {
         this.ruanganTerpilih = ruangan;
         this.tanggalTerpilih = tanggal;
-        this.jamMulai = mulai;
-        this.jamSelesai = selesai;
+        // assign final times by default; will be overwritten if user enters manual waktu khusus
+        this.jamMulaiFinal = mulai;
+        this.jamSelesaiFinal = selesai;
         this.isKhusus = khusus;
 
         // 1. Isi & Kunci Ruangan
@@ -174,6 +185,94 @@ public class FromPeminjamanController {
         // Logika simpan ke database...
         // Jika isKhusus == true, ambil string jam mentah dari txtJam.getText()
         // Jika isKhusus == false, pakai variabel jamMulai & jamSelesai
+    }
+
+    @FXML
+    void btnKirimPengajuan(ActionEvent event) {
+        // 1. Validasi Input UI
+        if (txtJumlahPeserta.getText().isEmpty() || txtTujuanPeminjaman.getText().isEmpty() ||
+            txtNamaLengkap.getText().isEmpty() || txtNomorKontak.getText().isEmpty()) {
+            tampilkanAlert(Alert.AlertType.WARNING, "Peringatan", "Harap lengkapi semua field yang berbintang (*).");
+            return;
+        }
+
+        // 2. Validasi Jam Manual (Jika Mode Khusus)
+        if (isKhusus) {
+            if (!prosesJamManual(txtJam.getText())) {
+                return; 
+            }
+        }
+
+        // 3. Persiapan Data untuk DAO
+        int idPeminjamDummy = 1; // Nanti ganti dengan Session User
+        int idRuangan = ruanganTerpilih.getIdRuangan();
+        int idTujuan = 1; // Nanti ganti dengan ComboBox ID
+        int jumlahPeserta = 0;
+        
+        try {
+            jumlahPeserta = Integer.parseInt(txtJumlahPeserta.getText());
+        } catch (NumberFormatException e) {
+            tampilkanAlert(Alert.AlertType.ERROR, "Error", "Jumlah peserta harus angka!");
+            return;
+        }
+
+        String noTelepon = txtNomorKontak.getText();
+        String keterangan = "Pemohon: " + txtNamaLengkap.getText() + " | Catatan: " + (txtCatatan != null ? txtCatatan.getText() : "");
+ 
+        // 4. PANGGIL DAO UNTUK SIMPAN KE DATABASE
+        boolean berhasil = reservasiDAO.simpanReservasi(
+            idPeminjamDummy, idRuangan, idTujuan, jumlahPeserta,
+            tanggalTerpilih, jamMulaiFinal, jamSelesaiFinal,
+            noTelepon, keterangan
+        );
+
+        // 5. Cek Hasil
+        if (berhasil) {
+            tampilkanAlert(Alert.AlertType.INFORMATION, "Berhasil", "Pengajuan berhasil dikirim! Menunggu persetujuan admin.");
+            kembaliKeDaftarRuangan();
+        } else {
+            tampilkanAlert(Alert.AlertType.ERROR, "Gagal", "Terjadi kesalahan saat menyimpan data ke database.");
+        }
+    }
+
+    @FXML
+    void handleBatal(ActionEvent event) {
+        kembaliKeDaftarRuangan();
+    }
+
+    // Helper: Logic UI Parsing Jam (Tetap di Controller karena ini urusan format inputan user)
+    private boolean prosesJamManual(String inputJam) {
+        try {
+            String cleanInput = inputJam.replace(".", ":");
+            String[] parts = cleanInput.split("-");
+ 
+            if (parts.length != 2) throw new Exception("Format salah");
+ 
+            this.jamMulaiFinal = LocalTime.parse(parts[0].trim());
+            this.jamSelesaiFinal = LocalTime.parse(parts[1].trim());
+            
+             return true;
+         } catch (Exception e) {
+             tampilkanAlert(Alert.AlertType.ERROR, "Format Jam Salah", 
+                 "Gunakan format: HH.mm - HH.mm\nContoh: 08.00 - 15.00");
+             return false;
+         }
+     }
+ 
+    private void kembaliKeDaftarRuangan() {
+        try {
+            App.setRoot("ruangan_peminjam"); 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void tampilkanAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }

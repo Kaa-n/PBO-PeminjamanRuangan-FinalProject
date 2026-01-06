@@ -223,7 +223,7 @@
         </GridPane>
 
         <Label text="Catatan Tambahan" />
-        <TextArea prefHeight="80" promptText="Catatan atau permintaan khusus (opsional)" />
+        <TextArea fx:id="txtCatatan" prefHeight="80" promptText="Catatan atau permintaan khusus (opsional)" />
     </VBox>
 
     <!-- BUTTON -->
