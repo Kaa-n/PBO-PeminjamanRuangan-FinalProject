@@ -8,6 +8,8 @@ public class Gedung {
     private String jamBuka;  // Format "HH:mm:ss" dari Time SQL
     private String jamTutup;
 
+    public Gedung() {}
+
     public Gedung(int idGedung, String namaGedung, String jamBuka, String jamTutup) {
         this.idGedung = idGedung;
         this.namaGedung = namaGedung;

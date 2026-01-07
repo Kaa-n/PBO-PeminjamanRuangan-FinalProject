@@ -18,7 +18,6 @@ public class UserDAO {
         String sql = "SELECT * FROM user WHERE (username = ? OR email = ?) AND password = ?";
 
         try {
-            // Hash password
             String passwordHash = HashSHA.konversiHexString(
                     HashSHA.konversiSHA(rawPassword)
             );
@@ -35,42 +34,32 @@ public class UserDAO {
                 String role = rs.getString("role");
                 String username = rs.getString("username");
 
-                // ADMIN
+                // ===== ADMIN =====
                 if ("admin".equalsIgnoreCase(role)) {
-
-                    // Ambil level admin (staf / super_admin)
                     String sqlAdmin = "SELECT level FROM admin WHERE id_user = ?";
                     PreparedStatement psAdmin = conn.prepareStatement(sqlAdmin);
                     psAdmin.setInt(1, idUser);
 
                     ResultSet rsAdmin = psAdmin.executeQuery();
                     if (rsAdmin.next()) {
-                        UserSession.setAdminLevel(
-                                rsAdmin.getString("level")
-                        );
+                        UserSession.setAdminLevel(rsAdmin.getString("level"));
                     }
 
-                    User admin = new Admin(idUser, username, role);
-                    UserSession.setUser(admin);
-                    return admin;
+                    return new Admin(idUser, username, role);
                 }
-                
-                String prodi = "-"; // Default jika tidak ketemu
-                
+
+                // ===== PEMINJAM =====
+                String prodi = "-";
                 String sqlPeminjam = "SELECT prodi FROM peminjam WHERE id_user = ?";
-                try (PreparedStatement psPeminjam = conn.prepareStatement(sqlPeminjam)) {
-                    psPeminjam.setInt(1, idUser);
-                    ResultSet rsPeminjam = psPeminjam.executeQuery();
-                    
-                    if (rsPeminjam.next()) {
-                        prodi = rsPeminjam.getString("prodi");
-                    }
+                PreparedStatement psPeminjam = conn.prepareStatement(sqlPeminjam);
+                psPeminjam.setInt(1, idUser);
+
+                ResultSet rsPeminjam = psPeminjam.executeQuery();
+                if (rsPeminjam.next()) {
+                    prodi = rsPeminjam.getString("prodi");
                 }
 
-                // Masukkan prodi yang sudah diambil dari tabel peminjam ke constructor
-                User peminjam = new Peminjam(idUser, username, role, prodi);
-                UserSession.setUser(peminjam);
-                return peminjam;
+                return new Peminjam(idUser, username, role, prodi);
             }
 
         } catch (Exception e) {
@@ -79,6 +68,7 @@ public class UserDAO {
 
         return null;
     }
+
     
     public String[] getNamaEmailById(int idUser) {
         String sql = "SELECT nama, email FROM user WHERE id_user = ?";

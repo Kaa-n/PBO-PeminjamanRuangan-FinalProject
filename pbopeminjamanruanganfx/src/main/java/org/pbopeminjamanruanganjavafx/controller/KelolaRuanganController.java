@@ -2,10 +2,12 @@ package org.pbopeminjamanruanganjavafx.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.pbopeminjamanruanganjavafx.App;
 import org.pbopeminjamanruanganjavafx.dao.KelolaRuanganDAO;
+import org.pbopeminjamanruanganjavafx.model.Ruangan;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -109,7 +111,7 @@ public class KelolaRuanganController implements Initializable {
         flowPaneRuangan.getChildren().clear();
 
         KelolaRuanganDAO dao = new KelolaRuanganDAO();
-        var listRuangan = dao.getAllRuangan();
+        List<Ruangan> listRuangan = dao.getAllRuangan();
 
         txtTotalRuangan.setText(String.valueOf(listRuangan.size()));
 
