@@ -33,7 +33,6 @@ public class Gedung {
     public void setJamTutup(String jamTutup) { 
         this.jamTutup = jamTutup; }
     
-    // Method Validasi Sederhana 
     // public boolean isBukaPadaJam(LocalTime waktu) {
     //     return !waktu.isBefore(jamBuka) && !waktu.isAfter(jamTutup);
     // }

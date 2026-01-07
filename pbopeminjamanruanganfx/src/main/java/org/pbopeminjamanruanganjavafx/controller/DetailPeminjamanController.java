@@ -27,7 +27,6 @@ import javafx.stage.Stage;
 
 public class DetailPeminjamanController implements Initializable {
 
-    // --- BAGIAN INI SAYA TAMBAHKAN AGAR SESUAI FXML ---
     @FXML
     private TableColumn<Peminjaman, String> colNamaRuangan;
     @FXML
@@ -47,8 +46,6 @@ public class DetailPeminjamanController implements Initializable {
     private ObservableList<Peminjaman> listPeminjaman = FXCollections.observableArrayList();
     private PeminjamanAdminDAO adminDAO = new PeminjamanAdminDAO();
 
-    // --- BAGIAN KODE ANDA (TIDAK DIHAPUS, HANYA DIPERBAIKI TIPE DATA TABELNYA) ---
-
     @FXML
     private Label lblKegiatan;
 
@@ -56,17 +53,15 @@ public class DetailPeminjamanController implements Initializable {
     private Label lblPeminjam;
 
     @FXML
-    private TableView<Peminjaman> tblDetailPeminjaman; // Saya ubah <?> jadi <Peminjaman> agar tidak error
+    private TableView<Peminjaman> tblDetailPeminjaman; 
 
-    // --- IMPLEMENTASI INITIALIZE (WAJIB ADA) ---
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // 1. Setup Kolom Tabel
         colNamaRuangan.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNamaRuangan()));
         colTanggal.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTanggal()));
         colJam.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getJam()));
-        colJumlahPeserta
-                .setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getJumlahPeserta() + " Orang"));
+        colJumlahPeserta.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getJumlahPeserta() + " Orang"));
         colKontak.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getKontak()));
         colNote.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNote()));
         colStatus.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStatus()));
@@ -90,11 +85,10 @@ public class DetailPeminjamanController implements Initializable {
             }
         });
 
-        // 2. Load Data
+        // Load Data
         loadData();
         tblDetailPeminjaman.setItems(listPeminjaman);
 
-        // 3. Listener: Update Label Header saat baris diklik
         tblDetailPeminjaman.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 lblPeminjam.setText(newVal.getNamaPeminjam());
@@ -108,7 +102,7 @@ public class DetailPeminjamanController implements Initializable {
 
     private void loadData() {
         listPeminjaman.clear();
-        // Ambil SEMUA data (versi Admin)
+        // Ambil SEMUA data versi Admin
         listPeminjaman.addAll(adminDAO.getAllPeminjaman());
     }
 
@@ -132,8 +126,6 @@ public class DetailPeminjamanController implements Initializable {
 
     @FXML
     void btnKelolaPeminjaman(ActionEvent event) {
-        // Karena kita sudah di halaman Kelola Peminjaman, tombol ini me-refresh data
-        // saja
         loadData();
     }
 
@@ -183,8 +175,6 @@ public class DetailPeminjamanController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    // --- LOGIKA TOMBOL AKSI (SAYA ISI ISINYA) ---
 
     @FXML
     void btnSetuju(ActionEvent event) {

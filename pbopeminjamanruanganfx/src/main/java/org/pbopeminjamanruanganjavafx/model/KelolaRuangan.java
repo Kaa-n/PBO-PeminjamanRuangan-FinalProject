@@ -22,7 +22,6 @@ public class KelolaRuangan {
         this.fotoRuangan = fotoRuangan;
     }
 
-    // ===== GETTER =====
     public int getIdRuangan() {
         return idRuangan;
     }

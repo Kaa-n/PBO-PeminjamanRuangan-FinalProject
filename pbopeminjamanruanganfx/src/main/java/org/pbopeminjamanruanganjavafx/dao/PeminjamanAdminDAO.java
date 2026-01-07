@@ -11,7 +11,6 @@ import java.util.List;
 
 public class PeminjamanAdminDAO {
 
-    // 1. Method Ambil SEMUA Data (Tanpa filter ID User)
     public List<Peminjaman> getAllPeminjaman() {
         List<Peminjaman> list = new ArrayList<>();
 
@@ -47,7 +46,6 @@ public class PeminjamanAdminDAO {
         return list;
     }
 
-    // 2. Method Update Status (Terima / Tolak)
     public boolean updateStatusReservasi(int idReservasi, String statusBaru) {
         String query = "UPDATE reservasi SET status = ? WHERE id_reservasi = ?";
 

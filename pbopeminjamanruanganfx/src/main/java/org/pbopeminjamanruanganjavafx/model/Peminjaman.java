@@ -1,5 +1,7 @@
 package org.pbopeminjamanruanganjavafx.model;
 
+import java.time.LocalTime;
+
 public class Peminjaman {
     private int id;
     private String namaPeminjam;
@@ -9,6 +11,9 @@ public class Peminjaman {
     private int jumlahPeserta;
     private String status;
     private String note;
+
+    private LocalTime jamMulai;   
+    private LocalTime jamSelesai; //
 
     public Peminjaman(int id, String namaPeminjam, String namaRuangan, String tanggal,
             String jam, int jumlahPeserta, String status, String note, String kontak) {

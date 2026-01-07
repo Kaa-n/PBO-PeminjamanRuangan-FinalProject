@@ -24,7 +24,7 @@ public class RuanganDAO {
         if (user instanceof Peminjam) {
             prodi = ((Peminjam) user).getProdi();
         }
-        // QUERY JOIN: Mengambil data Ruangan & data Gedung 
+        // Mengambil data Ruangan & data Gedung 
         String query = "SELECT r.*, g.nama_gedung, g.jam_buka, g.jam_tutup, " +
                        "(SELECT COUNT(*) FROM reservasi res " +
                        " JOIN peminjam p ON res.id_peminjam = p.id_peminjam " +

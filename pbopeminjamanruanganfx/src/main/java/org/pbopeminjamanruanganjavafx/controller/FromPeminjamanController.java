@@ -141,32 +141,29 @@ public class FromPeminjamanController {
 
     private Ruangan ruanganTerpilih;
     private LocalDate tanggalTerpilih;
-    // final times used for DAO (either from standard schedule or manual input)
+    
     private LocalTime jamMulaiFinal;
     private LocalTime jamSelesaiFinal;
-    // DAO instance used to persist reservation
+  
     private PeminjamanUserDAO reservasiDAO = new PeminjamanUserDAO();
 
     private boolean isKhusus;
 
-    // --- METHOD INI YANG AKAN DIPANGGIL DARI DETAIL RUANGAN ---
     public void setDataPeminjaman(Ruangan ruangan, LocalDate tanggal, LocalTime mulai, LocalTime selesai, boolean khusus) {
         this.ruanganTerpilih = ruangan;
         this.tanggalTerpilih = tanggal;
-        // assign final times by default; will be overwritten if user enters manual waktu khusus
-
-        // 1. Ambil ID User yang sedang login
+       
         int currentUserId = UserSession.getUser().getIdUser();
 
 
-        // 2. Ambil data dari Database
+        //Ambil data dari Database
         PeminjamanUserDAO.DataPemohon data = peminjamanUserDAO.getDetailPemohon(currentUserId);
 
         if (data != null) {
             // Isi Nama
             if (data.nama != null && !data.nama.isEmpty()) {
                 txtNamaLengkap.setText(data.nama);
-                txtNamaLengkap.setDisable(true); // Kunci agar tidak bisa diubah (Opsional)
+                txtNamaLengkap.setDisable(true); // Kunci agar tidak bisa diubah
             }
 
             // Isi NIM
@@ -177,10 +174,6 @@ public class FromPeminjamanController {
                     txtNim.setDisable(true);
                 }
             }
-            
-            // Catatan untuk Nomor Kontak:
-            // Karena di database tabel 'user' dan 'peminjam' belum ada kolom no_hp,
-            // field ini kita biarkan kosong agar user mengisi manual.
         }
 
 
@@ -188,39 +181,32 @@ public class FromPeminjamanController {
         this.jamSelesaiFinal = selesai;
         this.isKhusus = khusus;
 
-        // 1. Isi & Kunci Ruangan
         txtRuangan.setText(ruangan.getNamaRuangan());
         txtRuangan.setDisable(true); // Read-only
 
-        // 2. Isi & Kunci Tanggal (Format: 12-01-2026)
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         txtTanggal.setText(tanggal.format(fmt));
         txtTanggal.setDisable(true); // Read-only
 
-        // 3. Logika Jam (Standard vs Khusus)
         if (isKhusus) {
-            // Mode Khusus: Kosongkan dan biarkan user mengetik
             txtJam.setText("");
             txtJam.setPromptText("Contoh: 07.00 - 15.00");
-            txtJam.setDisable(false); // BISA DIEDIT
+            txtJam.setDisable(false); 
             txtJam.setEditable(true);
         } else {
-            // Mode Normal: Isi otomatis dan kunci
+            //Isi otomatis dan kunci
             String range = mulai + " - " + selesai;
             txtJam.setText(range);
-            txtJam.setDisable(true); // TIDAK BISA DIEDIT
+            txtJam.setDisable(true); 
         }
         
-        // (Opsional) Auto-fill kapasitas max
         txtJumlahPeserta.setPromptText("Max: " + ruangan.getKapasitas());
     }
 
-    @FXML
-    private void handleSimpan() {
-        // Logika simpan ke database...
-        // Jika isKhusus == true, ambil string jam mentah dari txtJam.getText()
-        // Jika isKhusus == false, pakai variabel jamMulai & jamSelesai
-    }
+    // @FXML
+    // private void handleSimpan() {
+        
+    // }
 
     @FXML
     void btnKirimPengajuan(ActionEvent event) {
@@ -231,17 +217,15 @@ public class FromPeminjamanController {
             return;
         }
 
-        // 2. Validasi Jam Manual (Jika Mode Khusus)
         if (isKhusus) {
             if (!prosesJamManual(txtJam.getText())) {
                 return; 
             }
         }
 
-        // 3. Persiapan Data untuk DAO
-        int idPeminjamDummy = 1; // Nanti ganti dengan Session User
+        int idPeminjamDummy = 1; 
         int idRuangan = ruanganTerpilih.getIdRuangan();
-        int idTujuan = 1; // Nanti ganti dengan ComboBox ID
+        int idTujuan = 1; 
         int jumlahPeserta = 0;
         
         try {
@@ -254,14 +238,14 @@ public class FromPeminjamanController {
         String noTelepon = txtNomorKontak.getText();
         String keterangan = (txtCatatan != null ? txtCatatan.getText() : "");
  
-        // 4. PANGGIL DAO UNTUK SIMPAN KE DATABASE
+      
         boolean berhasil = reservasiDAO.simpanReservasi(
             idPeminjamDummy, idRuangan, idTujuan, jumlahPeserta,
             tanggalTerpilih, jamMulaiFinal, jamSelesaiFinal,
             noTelepon, keterangan
         );
 
-        // 5. Cek Hasil
+
         if (berhasil) {
             tampilkanAlert(Alert.AlertType.INFORMATION, "Berhasil", "Pengajuan berhasil dikirim! Menunggu persetujuan admin.");
             kembaliKeDaftarRuangan();
@@ -275,7 +259,6 @@ public class FromPeminjamanController {
         kembaliKeDaftarRuangan();
     }
 
-    // Helper: Logic UI Parsing Jam (Tetap di Controller karena ini urusan format inputan user)
     private boolean prosesJamManual(String inputJam) {
         try {
             String cleanInput = inputJam.replace(".", ":");
