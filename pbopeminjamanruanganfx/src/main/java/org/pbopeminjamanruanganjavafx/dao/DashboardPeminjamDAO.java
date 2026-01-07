@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.pbopeminjamanruanganjavafx.model.Peminjaman;
 
 public class DashboardPeminjamDAO {
 
@@ -69,41 +68,6 @@ public class DashboardPeminjamDAO {
                     rs.getString("status"),
                     rs.getTimestamp("tanggal_pengajuan").toString()
                 });
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-    public List<Peminjaman> getPeminjamanByUserId(int idUser) {
-        List<Peminjaman> list = new ArrayList<>();
-
-        String query = "SELECT r.id_reservasi, u.nama AS nama_peminjam, ru.nama_ruangan, " +
-                "r.tanggal, r.jam_mulai, r.jam_selesai, r.jumlah_peserta, " +
-                "r.status, r.keterangan_reservasi, r.no_telepon " +
-                "FROM reservasi r " +
-                "JOIN ruangan ru ON r.id_ruangan = ru.id_ruangan " +
-                "JOIN peminjam p ON r.id_peminjam = p.id_peminjam " +
-                "JOIN user u ON p.id_user = u.id_user " +
-                "WHERE u.id_user = ? " +
-                "ORDER BY r.tanggal DESC";
-
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setInt(1, idUser);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                list.add(new Peminjaman(
-                        rs.getInt("id_reservasi"),
-                        rs.getString("nama_peminjam"),
-                        rs.getString("nama_ruangan"),
-                        rs.getString("tanggal"),
-                        rs.getString("jam_mulai") + " - " + rs.getString("jam_selesai"),
-                        rs.getInt("jumlah_peserta"),
-                        rs.getString("status"),
-                        rs.getString("keterangan_reservasi"),
-                        rs.getString("no_telepon")            
-                ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
