@@ -20,6 +20,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class DashboardPeminjamController {
+
+    private User userLogin;
     @FXML
     private void btnAkun() throws IOException {
         App.setRoot("Profile");
@@ -68,12 +70,10 @@ public class DashboardPeminjamController {
     @FXML private Label lblDisetujui;
     @FXML private Label lblPending;
     @FXML private Label lblDitolak;
-
     @FXML private VBox aktivitasContainer;
-
     @FXML
     public void initialize() {
-        User userLogin = UserSession.getUser();
+        userLogin = UserSession.getUser();
 
         if (userLogin == null) {
             System.out.println("ERROR: User belum login");
@@ -83,32 +83,34 @@ public class DashboardPeminjamController {
         loadDashboard(userLogin.getIdUser());
     }
 
-    private void loadDashboard(int idPeminjam) {
+    private void loadDashboard(int idUser) {
         Connection conn = DatabaseConnection.getConnection();
         DashboardPeminjamDAO dao = new DashboardPeminjamDAO(conn);
-
         lblTotalPeminjaman.setText(
-                String.valueOf(dao.countAll(idPeminjam))
+                String.valueOf(dao.countAllByUser(idUser))
         );
+
         lblDisetujui.setText(
-                String.valueOf(dao.countByStatus(idPeminjam, "disetujui"))
+                String.valueOf(dao.countByStatusByUser(idUser, "disetujui"))
         );
+
         lblPending.setText(
-                String.valueOf(dao.countByStatus(idPeminjam, "menunggu"))
+                String.valueOf(dao.countByStatusByUser(idUser, "menunggu"))
         );
+
         lblDitolak.setText(
-                String.valueOf(dao.countByStatus(idPeminjam, "ditolak"))
+                String.valueOf(dao.countByStatusByUser(idUser, "ditolak"))
         );
 
         List<String[]> aktivitas =
-                dao.getAktivitasTerbaru(idPeminjam);
+                dao.getAktivitasTerbaruByUser(idUser);
 
         aktivitasContainer.getChildren().clear();
 
         for (String[] data : aktivitas) {
             aktivitasContainer.getChildren().add(
                     createAktivitasItem(
-                            data[0],
+                            data[0], 
                             data[1], 
                             data[2]  
                     )
