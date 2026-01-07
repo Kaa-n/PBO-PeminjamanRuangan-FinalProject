@@ -14,8 +14,8 @@ public class Ruangan {
     private String tipeRuangan;
     
     // Relasi Objek
-    private Gedung gedung; // Set via JOIN di DAO
-    private List<Fasilitas> listFasilitas; // Set via query terpisah di DAO
+    private Gedung gedung; 
+    private List<Fasilitas> listFasilitas; 
 
     public Ruangan(int idRuangan, String namaRuangan, String deskripsi, int kapasitas, int lantai, String status, String fotoPath, String tipeRuangan) {
         this.idRuangan = idRuangan;

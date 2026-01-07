@@ -58,34 +58,26 @@ public class ItemRuanganController {
         lblKapasitas.setText("Kapasitas: " + ruangan.getKapasitas() + " orang");
         lblStatus.setText("Status: " + ruangan.getStatus());
 
-        // LOKASI (Gedung + Lantai) ---
-        // if (ruangan.getGedung() != null) {
-        //     // Contoh output: "Gedung Dekanat FMIPA, Lantai 1"
-        //     String textLokasi = ruangan.getGedung().getNamaGedung() + ", Lantai " + ruangan.getLantai();
-        //     if (lblLokasi != null) {
-        //         lblLokasi.setText(textLokasi);
-        //     }
-        // }
-
         // WARNA STATUS
-        if ("Tersedia".equalsIgnoreCase(ruangan.getStatus())) {
-            lblStatus.setTextFill(Color.GREEN);
-        } else {
-            lblStatus.setTextFill(Color.RED);
+        
+         String status = ruangan.getStatus().toLowerCase();
+        if (status.equals("tersedia")) {
+            lblStatus.setStyle("-fx-text-fill: #27ae60; -fx-font-weight: bold;"); 
+        } else if (status.equals("penuh")) {
+            lblStatus.setStyle("-fx-text-fill: #e74c3c; -fx-font-weight: bold;"); 
+        } else if (status.equals("dalam perbaikan")) {
+            lblStatus.setStyle("-fx-text-fill: #f1c40f; -fx-font-weight: bold;"); 
         }
 
-        // LOAD GAMBAR
         try {
             String path = ruangan.getFotoPath();
             if (path == null || path.isEmpty()) {
-                // Ganti dengan gambar default di project
                 path = "/images/RoomsPage.png"; 
             }
             
             Image img = new Image(getClass().getResourceAsStream(path), 341, 213, false, true);
             imgFotoRuangan.setImage(img);
             
-            // Clipping (membuat sudut gambar melengkung)
             clipImage(); 
 
         } catch (Exception e) {
@@ -106,6 +98,7 @@ public class ItemRuanganController {
                 flowPaneFasilitas.getChildren().add(lbl);
             }
         }
+        
     }
 
     private void clipImage() {
@@ -133,7 +126,6 @@ public class ItemRuanganController {
     @FXML 
     private void btnDetailPengajuan(ActionEvent event) {
         try {
-            // A. Load FXML Detail
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/pbopeminjamanruanganjavafx/detail_ruangan_dan_jadwal_peminjam.fxml"));
 
             //test
@@ -142,10 +134,9 @@ public class ItemRuanganController {
             }
             Parent root = loader.load();
 
-            // B. Ambil Controllernya
             DetailRuanganController detailController = loader.getController();
 
-            // C. Kirim Data Ruangan
+
             if (detailController != null) {
                 detailController.setRuangan(this.ruanganSaatIni);
             }

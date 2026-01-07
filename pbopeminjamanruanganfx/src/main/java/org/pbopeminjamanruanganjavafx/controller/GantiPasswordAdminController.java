@@ -47,7 +47,6 @@ public class GantiPasswordAdminController {
 
         boolean suksesUpdate = false;
 
-        // --- BLOK KHUSUS DATABASE ---
         try {
             int idAktif = UserSession.getUser().getIdUser();
             String hashLama = HashSHA.konversiHexString(HashSHA.konversiSHA(sandiSaatIni));
@@ -63,7 +62,6 @@ public class GantiPasswordAdminController {
             return; // Berhenti jika DB error
         }
 
-        // --- BLOK NAVIGASI DI LUAR TRY DATABASE ---
         if (suksesUpdate) {
             tampilkanAlert(Alert.AlertType.INFORMATION, "Sukses", "Kata sandi berhasil diperbarui!");
             

@@ -7,6 +7,7 @@ import org.pbopeminjamanruanganjavafx.App;
 import org.pbopeminjamanruanganjavafx.config.DatabaseConnection;
 import org.pbopeminjamanruanganjavafx.model.Fasilitas;
 import org.pbopeminjamanruanganjavafx.model.Ruangan;
+import org.pbopeminjamanruanganjavafx.model.Gedung;
 
 
 import java.sql.Connection;
@@ -85,7 +86,7 @@ public class DetailRuanganController {
     private final int DURASI_SKS = 40; // Menit
     private final int MAX_SLOT = 5;
 
-    // Class sederhana untuk menyimpan info booking dari DB
+    // Class menyimpan info booking dari DB
     private class BookingInfo {
         LocalTime start;
         LocalTime end;
@@ -115,11 +116,10 @@ public class DetailRuanganController {
         return lbl;
     }
 
-    // Method ini akan dipanggil oleh ItemRuanganController sebelum scene ditampilkan
+    // Method ini dipanggil oleh ItemRuanganController sebelum scene ditampilkan
     public void setRuangan(Ruangan ruangan) {
         this.ruanganTerpilih = ruangan;
         
-        // Update UI Detail sesuai data ruangan
         lblNamaRuangan.setText(ruangan.getNamaRuangan());
         lblTipeRuang.setText(ruangan.getTipeRuangan());
         lblDeskripsi.setText(ruangan.getDeskripsi());
@@ -135,21 +135,17 @@ public class DetailRuanganController {
             lblStatus.setTextFill(Color.RED);
         }
 
-        // // Tampilkan fasilitas (gabungkan jadi string koma)
-        // StringBuilder fasStr = new StringBuilder();
-        // if(ruangan.getListFasilitas() != null) {
-        //     for(Fasilitas f : ruangan.getListFasilitas()){
-        //         fasStr.append(f.getNamaFasilitas()).append(", ");
-        //     }
-        // }
-        // flowPaneFasilitas.getChildren().clear();
-         flowPaneFasilitas.getChildren().clear();
+        flowPaneFasilitas.getChildren().clear();
         if (ruangan.getListFasilitas() != null) {
             for (Fasilitas fas : ruangan.getListFasilitas()) {
                 // Format label: "Proyektor (2)" atau hanya "Proyektor" jika jumlah 1
                 String labelText = fas.getNamaFasilitas();
                 if (fas.getJumlah() > 1) {
-                    labelText += " (" + fas.getJumlah() + ")";
+                    if (fas.getKondisi().equalsIgnoreCase("baik")) {
+                        labelText += " (" + fas.getJumlah() + ")";
+                    } else{
+                        labelText += " (" + fas.getJumlah() + " - " + fas.getKondisi() + ")";
+                    }   
                 }
 
                 Label lbl = buatLabelFasilitas(labelText);
@@ -191,17 +187,28 @@ public class DetailRuanganController {
         flowPaneRangeWaktu.getChildren().clear();
         slotTerpilih.clear();
 
-        // Jarak antar tombol (tetap kita beri sedikit spasi agar rapi)
-        flowPaneRangeWaktu.setHgap(15); 
-        flowPaneRangeWaktu.setVgap(15); 
+        flowPaneRangeWaktu.setHgap(16); 
+        flowPaneRangeWaktu.setVgap(16); 
 
         if (ruanganTerpilih == null || ruanganTerpilih.getGedung() == null) return;
-
-        LocalTime jamBuka = LocalTime.of(7, 0);
-        LocalTime jamTutup = LocalTime.of(21, 0);
+        String sistemJamBuka = ruanganTerpilih.getGedung().getJamBuka();
+        //pecah menjadi jam dan menit
+        String[] bukaParts = sistemJamBuka.split(":");
+        int jamBukaGedung = Integer.parseInt(bukaParts[0]);
+        int menitBukaGedung = Integer.parseInt(bukaParts[1]);
+        // String sistemJamTutup = ruanganTerpilih.getGedung().getJamTutup();
+        String sistemJamTutup = ruanganTerpilih.getGedung().getJamTutup();
+        //pecah menjadi jam dan menit
+        String[] tutupParts = sistemJamTutup.split(":");
+        int jamTutupGedung = Integer.parseInt(tutupParts[0]);
+        int menitTutupGedung = Integer.parseInt(tutupParts[1]);
+        LocalTime jamBuka = LocalTime.of(jamBukaGedung, menitBukaGedung);
+        LocalTime jamTutup = LocalTime.of(jamTutupGedung, menitTutupGedung);
         List<BookingInfo> listBooking = ambilJadwalDariDB(ruanganTerpilih.getIdRuangan(), tanggal);
 
         LocalTime currentSlot = jamBuka;
+        int totalSlotHariIni = 0;
+        int slotTerisi = 0;
 
         while (currentSlot.plusMinutes(DURASI_SKS).isBefore(jamTutup) || currentSlot.plusMinutes(DURASI_SKS).equals(jamTutup)) {
             LocalTime endSlot = currentSlot.plusMinutes(DURASI_SKS);
@@ -210,16 +217,15 @@ public class DetailRuanganController {
             ToggleButton btn = new ToggleButton(textJam);
             
             btn.setPrefSize(114, 38);   // Lebar 114, Tinggi 38
-            btn.setMinSize(114, 38);    // Kunci agar tidak mengecil
-            btn.setMaxSize(114, 38);    // Kunci agar tidak membesar
+            btn.setMinSize(114, 38);    
+            btn.setMaxSize(114, 38);    
             
-            // --- STYLE CSS ---
             btn.getStyleClass().add("button-slot");
             
             // Simpan data jam di tombol
             btn.setUserData(new BookingInfo(currentSlot, endSlot, "tersedia"));
 
-            // --- CEK STATUS DATABASE (Sama seperti sebelumnya) ---
+            // CEK STATUS DATABASE-
             boolean isBooked = false;
             for (BookingInfo info : listBooking) {
                 if (currentSlot.isBefore(info.end) && endSlot.isAfter(info.start)) {
@@ -231,6 +237,7 @@ public class DetailRuanganController {
                         btn.setDisable(true);
                     }
                     isBooked = true;
+                    slotTerisi++;
                     break;
                 }
             }
@@ -240,8 +247,11 @@ public class DetailRuanganController {
             }
 
             flowPaneRangeWaktu.getChildren().add(btn);
+            totalSlotHariIni++;
             currentSlot = endSlot;
         }
+
+        updateStatusLabelHarian(totalSlotHariIni, slotTerisi);
 
         javafx.scene.control.Button btnKhusus = new javafx.scene.control.Button("Khusus");
         btnKhusus.getStyleClass().add("button-khusus");
@@ -258,13 +268,28 @@ public class DetailRuanganController {
 
     }
 
-    // -------------------------------------------------------------
-    // 3. LOGIKA SELEKSI (MAX 5 & HARUS BERURUTAN)
-    // -------------------------------------------------------------
+    private void updateStatusLabelHarian(int totalSlot, int slotTerisi) {
+        String statusFisik = ruanganTerpilih.getStatus(); 
+        
+        if (!"tersedia".equalsIgnoreCase(statusFisik)) {
+            lblStatus.setText(statusFisik); 
+            lblStatus.setTextFill(Color.RED);
+            return; 
+        }
+
+        if (totalSlot > 0 && totalSlot == slotTerisi) {
+            lblStatus.setText("Penuh");
+            lblStatus.setTextFill(Color.RED);
+        } else {
+            lblStatus.setText("Tersedia");
+            lblStatus.setTextFill(Color.GREEN);
+        }
+    }
+
+   
+    // LOGIKA SELEKSI (MAX 5 & HARUS BERURUTAN)
     private void handleKlikSlot(ToggleButton btn) {
         if (btn.isSelected()) {
-            // -- USER INGIN MEMILIH --
-            
             // Cek 1: Max 5
             if (slotTerpilih.size() >= MAX_SLOT) {
                 btn.setSelected(false);
@@ -272,7 +297,6 @@ public class DetailRuanganController {
                 return;
             }
 
-            // Cek 2: Harus Berurutan (Consecutive)
             if (!slotTerpilih.isEmpty()) {
                 BookingInfo infoBaru = (BookingInfo) btn.getUserData();
                 
@@ -302,7 +326,6 @@ public class DetailRuanganController {
             }
 
         } else {
-            // -- USER INGIN MEMBATALKAN PILIHAN --
             // Hanya boleh uncheck ujung kiri atau ujung kanan agar tidak bolong tengah
             if (slotTerpilih.size() > 1) {
                 ToggleButton firstBtn = slotTerpilih.get(0);
@@ -311,15 +334,13 @@ public class DetailRuanganController {
                 if (btn != firstBtn && btn != lastBtn) {
                     // User coba uncheck bagian tengah
                     btn.setSelected(true); // Paksa nyala lagi
-                    System.out.println("Tidak boleh membatalkan bagian tengah, batalkan dari ujung!");
                 } else {
                     slotTerpilih.remove(btn);
                 }
             } else {
                 slotTerpilih.remove(btn);
             }
-        }
-        
+        }      
         System.out.println("Slot terpilih: " + slotTerpilih.size());
     }
 
@@ -354,16 +375,11 @@ public class DetailRuanganController {
 
     private void navigasiKeForm(LocalTime start, LocalTime end, boolean isKhusus) {
         try {
-            // 1. Load FXML secara manual (agar bisa akses controller-nya)
             FXMLLoader loader = new FXMLLoader(App.class.getResource("FromPeminjaman.fxml")); 
-            // Pastikan nama file FXML benar! (Case Sensitive)
             
             Parent root = loader.load();
-
-            // 2. Ambil Controller dari file FXML tujuan
             FromPeminjamanController controller = loader.getController();
 
-            // 3. KIRIM DATA KE SEBELAH
             controller.setDataPeminjaman(
                 this.ruanganTerpilih, 
                 txtTanggal.getValue(), 
@@ -372,8 +388,6 @@ public class DetailRuanganController {
                 isKhusus
             );
 
-            // 4. Tampilkan Scene Baru
-            // Kita akses 'scene' static dari App.java atau ambil dari stage saat ini
             App.setScene(new Scene(root));
 
         } catch (IOException e) {
@@ -394,11 +408,9 @@ public class DetailRuanganController {
         
         if (slotTerpilih.isEmpty()) {
             System.out.println("Harap pilih jam terlebih dahulu!");
-            // (Opsional) Tampilkan Alert Dialog di sini
             return;
         }
 
-        // Ambil Jam Awal (Slot Pertama) dan Jam Akhir (Slot Terakhir)
         BookingInfo firstSlot = (BookingInfo) slotTerpilih.get(0).getUserData();
         BookingInfo lastSlot = (BookingInfo) slotTerpilih.get(slotTerpilih.size() - 1).getUserData();
 

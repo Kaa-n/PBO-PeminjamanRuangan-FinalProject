@@ -20,7 +20,7 @@ public class PeminjamanUserDAO {
 
         String query = "SELECT r.id_reservasi, u.nama AS nama_peminjam, ru.nama_ruangan, " +
                 "r.tanggal, r.jam_mulai, r.jam_selesai, r.jumlah_peserta, " +
-                "r.status, r.keterangan_reservasi, r.no_telepon " + // <--- TAMBAH INI
+                "r.status, r.keterangan_reservasi, r.no_telepon " + 
                 "FROM reservasi r " +
                 "JOIN ruangan ru ON r.id_ruangan = ru.id_ruangan " +
                 "JOIN peminjam p ON r.id_peminjam = p.id_peminjam " +
@@ -45,7 +45,7 @@ public class PeminjamanUserDAO {
                         rs.getInt("jumlah_peserta"),
                         rs.getString("status"),
                         rs.getString("keterangan_reservasi"), // Note
-                        rs.getString("no_telepon") // Kontak (ambil dari kolom no_telepon)
+                        rs.getString("no_telepon") // Kontak
                 ));
             }
         } catch (Exception e) {
@@ -132,7 +132,7 @@ public class PeminjamanUserDAO {
                 data = new DataPemohon();
                 data.nama = rs.getString("nama");
                 data.nim = rs.getString("nomor_induk");
-                // data.noTelepon = rs.getString("no_telepon"); // Jika ada kolomnya
+                // data.noTelepon = rs.getString("no_telepon"); 
             }
             
         } catch (Exception e) {
@@ -140,4 +140,6 @@ public class PeminjamanUserDAO {
         }
         return data;
     }
+
+
 }

@@ -32,6 +32,11 @@ public class App extends Application {
     }
 
    public static void setRoot(String fxml) throws IOException {
+       if (stage != null && stage.getScene() != null && stage.getScene() != scene) {
+            // Jika beda, berarti kita sedang di 'Scene Zombie' (Detail Ruangan).
+            // Solusi: Paksa stage kembali menggunakan scene utama kita.
+            stage.setScene(scene);
+        }
         scene.setRoot(loadFXML(fxml));
     }
 
