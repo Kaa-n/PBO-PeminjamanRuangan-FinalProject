@@ -33,7 +33,6 @@ public class LoginController {
     @FXML
     void btnLupaPassword(ActionEvent event) {
 
-
     }
 
     private UserDAO userDAO = new UserDAO();
@@ -50,9 +49,9 @@ public class LoginController {
 
         // Panggil DAO
         User userLogin = userDAO.validasiLogin(username_email, password);
-            if (userLogin != null) {
-                // Login Sukses
-                try {
+        if (userLogin != null) {
+            // Login Sukses
+            try {
                 UserSession.setUser(userLogin);
                 bukaDashboard(userLogin.getDashboardFxml(), userLogin.getDashboardTitle());
             } catch (IOException e) {
@@ -63,10 +62,9 @@ public class LoginController {
         }
     }
 
-
     private void bukaDashboard(String fxmlFile, String title) throws IOException {
         Stage stage = (Stage) btnLogin.getScene().getWindow();
-        
+
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxmlFile));
         Parent root = fxmlLoader.load();
 
@@ -74,9 +72,9 @@ public class LoginController {
         App.setScene(scene);
         stage.setScene(scene);
         stage.setTitle(title);
-        
+
         // Kembalikan kemampuan resize window untuk dashboard
-        stage.setResizable(true); 
+        stage.setResizable(true);
         stage.centerOnScreen();
     }
 

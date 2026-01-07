@@ -108,7 +108,7 @@ public class DetailPeminjamanController implements Initializable {
 
     private void loadData() {
         listPeminjaman.clear();
-        // Ambil SEMUA data (versi Admin)
+        
         listPeminjaman.addAll(adminDAO.getAllPeminjaman());
     }
 
@@ -132,8 +132,6 @@ public class DetailPeminjamanController implements Initializable {
 
     @FXML
     void btnKelolaPeminjaman(ActionEvent event) {
-        // Karena kita sudah di halaman Kelola Peminjaman, tombol ini me-refresh data
-        // saja
         loadData();
     }
 
@@ -167,7 +165,7 @@ public class DetailPeminjamanController implements Initializable {
             stage.setScene(scene);
             stage.setTitle("LOGIN SIPIRANG");
 
-            // Kembalikan kemampuan resize window untuk dashboard
+         
             stage.setResizable(false);
             stage.centerOnScreen();
         } catch (IOException e) {
@@ -184,7 +182,7 @@ public class DetailPeminjamanController implements Initializable {
         }
     }
 
-    // --- LOGIKA TOMBOL AKSI (SAYA ISI ISINYA) ---
+    // --- LOGIKA TOMBOL AKSI  ---
 
     @FXML
     void btnSetuju(ActionEvent event) {
@@ -196,7 +194,6 @@ public class DetailPeminjamanController implements Initializable {
         processStatusUpdate("Ditolak");
     }
 
-    // Helper untuk update status
     private void processStatusUpdate(String newStatus) {
         Peminjaman selected = tblDetailPeminjaman.getSelectionModel().getSelectedItem();
 

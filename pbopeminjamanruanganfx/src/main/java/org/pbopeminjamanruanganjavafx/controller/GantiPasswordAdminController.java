@@ -60,7 +60,7 @@ public class GantiPasswordAdminController {
         } catch (Exception e) {
             e.printStackTrace();
             tampilkanAlert(Alert.AlertType.ERROR, "Database Error", "Terjadi kesalahan koneksi database.");
-            return; // Berhenti jika DB error
+            return; 
         }
 
         // --- BLOK NAVIGASI DI LUAR TRY DATABASE ---
