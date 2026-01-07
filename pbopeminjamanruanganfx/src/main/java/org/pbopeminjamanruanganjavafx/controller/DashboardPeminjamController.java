@@ -21,14 +21,7 @@ import javafx.stage.Stage;
 
 public class DashboardPeminjamController {
 
-    // =====================
-    // SESSION USER (FIELD)
-    // =====================
     private User userLogin;
-
-    // =====================
-    // NAVIGATION
-    // =====================
     @FXML
     private void btnAkun() throws IOException {
         App.setRoot("Profile");
@@ -73,18 +66,11 @@ public class DashboardPeminjamController {
         }
     }
 
-    // =====================
-    // FXML COMPONENT
-    // =====================
     @FXML private Label lblTotalPeminjaman;
     @FXML private Label lblDisetujui;
     @FXML private Label lblPending;
     @FXML private Label lblDitolak;
     @FXML private VBox aktivitasContainer;
-
-    // =====================
-    // INITIALIZE
-    // =====================
     @FXML
     public void initialize() {
         userLogin = UserSession.getUser();
@@ -97,14 +83,9 @@ public class DashboardPeminjamController {
         loadDashboard(userLogin.getIdUser());
     }
 
-    // =====================
-    // LOAD DASHBOARD
-    // =====================
     private void loadDashboard(int idUser) {
         Connection conn = DatabaseConnection.getConnection();
         DashboardPeminjamDAO dao = new DashboardPeminjamDAO(conn);
-
-        // ===== CARD DATA =====
         lblTotalPeminjaman.setText(
                 String.valueOf(dao.countAllByUser(idUser))
         );
@@ -121,7 +102,6 @@ public class DashboardPeminjamController {
                 String.valueOf(dao.countByStatusByUser(idUser, "ditolak"))
         );
 
-        // ===== AKTIVITAS TERBARU =====
         List<String[]> aktivitas =
                 dao.getAktivitasTerbaruByUser(idUser);
 
@@ -130,17 +110,13 @@ public class DashboardPeminjamController {
         for (String[] data : aktivitas) {
             aktivitasContainer.getChildren().add(
                     createAktivitasItem(
-                            data[0], // nama ruangan
-                            data[1], // status
-                            data[2]  // tanggal
+                            data[0], 
+                            data[1], 
+                            data[2]  
                     )
             );
         }
     }
-
-    // =====================
-    // UI ITEM
-    // =====================
     private VBox createAktivitasItem(
             String namaRuangan,
             String status,
