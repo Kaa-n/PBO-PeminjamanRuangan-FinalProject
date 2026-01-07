@@ -29,6 +29,9 @@ public class ItemRuanganController {
     @FXML
     private Button btnPesan;
 
+     @FXML
+    private Button btnDetail;
+
     @FXML
     private FlowPane flowPaneFasilitas;
 
@@ -68,6 +71,18 @@ public class ItemRuanganController {
         } else if (status.equals("dalam perbaikan")) {
             lblStatus.setStyle("-fx-text-fill: #f1c40f; -fx-font-weight: bold;"); 
         }
+
+        if (status.contains("dalam perbaikan")) {
+            btnDetail.setDisable(true);
+            btnDetail.setText("Tidak Tersedia");
+            lblStatus.setTextFill(Color.RED); 
+        } else {
+            btnDetail.setDisable(false);
+            btnDetail.setText("Detail Peminjaman");
+            lblStatus.setTextFill(Color.GREEN);
+        }
+
+
 
         try {
             String path = ruangan.getFotoPath();
