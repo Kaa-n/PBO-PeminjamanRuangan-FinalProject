@@ -5,7 +5,7 @@ import org.pbopeminjamanruanganjavafx.model.User;
 public class UserSession {
 
     private static User currentUser;
-    private static String adminLevel; // staf / super_admin
+    private static String adminLevel; 
 
     public static void setUser(User user) {
         currentUser = user;

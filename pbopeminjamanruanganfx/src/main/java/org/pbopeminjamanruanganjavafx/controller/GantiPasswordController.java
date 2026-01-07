@@ -14,7 +14,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 public class GantiPasswordController {
-    // Variabel untuk menampung ID user yang sedang login
     private int idUserLogin;
 
     @FXML
@@ -26,7 +25,6 @@ public class GantiPasswordController {
     @FXML
     private TextField txtSandiSaatIni;
 
-    // Method ini akan dipanggil oleh LoginController saat pindah halaman
     public void setIdUserLogin(int idUser) {
         this.idUserLogin = idUser;
     }
@@ -42,7 +40,6 @@ public class GantiPasswordController {
         String sandiBaru = txtSandiBaru.getText();
         String konfirmasiSandi = txtKonfirmasiSandi.getText();
 
-        // 1. Validasi Input (Tetap sama)
         if (sandiSaatIni.isEmpty() || sandiBaru.isEmpty() || konfirmasiSandi.isEmpty()) {
             tampilkanAlert(Alert.AlertType.WARNING, "Peringatan", "Semua field harus diisi!");
             return;
@@ -54,7 +51,6 @@ public class GantiPasswordController {
 
         boolean suksesUpdate = false;
 
-        // --- BLOK KHUSUS DATABASE ---
         try {
             int idAktif = UserSession.getUser().getIdUser();
             String hashLama = HashSHA.konversiHexString(HashSHA.konversiSHA(sandiSaatIni));
@@ -67,10 +63,9 @@ public class GantiPasswordController {
         } catch (Exception e) {
             e.printStackTrace();
             tampilkanAlert(Alert.AlertType.ERROR, "Database Error", "Terjadi kesalahan koneksi database.");
-            return; // Berhenti jika DB error
+            return;
         }
 
-        // --- BLOK NAVIGASI DI LUAR TRY DATABASE ---
         if (suksesUpdate) {
             tampilkanAlert(Alert.AlertType.INFORMATION, "Sukses", "Kata sandi berhasil diperbarui!");
             

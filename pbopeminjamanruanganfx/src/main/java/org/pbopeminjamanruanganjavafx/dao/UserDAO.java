@@ -35,7 +35,7 @@ public class UserDAO {
                 String role = rs.getString("role");
                 String username = rs.getString("username");
 
-                // === ADMIN ===
+                // ADMIN
                 if ("admin".equalsIgnoreCase(role)) {
 
                     // Ambil level admin (staf / super_admin)
@@ -54,8 +54,6 @@ public class UserDAO {
                     UserSession.setUser(admin);
                     return admin;
                 }
-
-                // === PEMINJAM ===
                 
                 String prodi = "-"; // Default jika tidak ketemu
                 
@@ -81,10 +79,7 @@ public class UserDAO {
 
         return null;
     }
-
-    // =============================
-    // Ambil nama & email (untuk kontak user)
-    // =============================
+    
     public String[] getNamaEmailById(int idUser) {
         String sql = "SELECT nama, email FROM user WHERE id_user = ?";
         Connection conn = DatabaseConnection.getConnection();
