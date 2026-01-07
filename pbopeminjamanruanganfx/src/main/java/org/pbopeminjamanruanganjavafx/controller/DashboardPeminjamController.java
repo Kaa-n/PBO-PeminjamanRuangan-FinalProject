@@ -20,6 +20,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class DashboardPeminjamController {
+
+    // =====================
+    // SESSION USER (FIELD)
+    // =====================
+    private User userLogin;
+
+    // =====================
+    // NAVIGATION
+    // =====================
     @FXML
     private void btnAkun() throws IOException {
         App.setRoot("Profile");
@@ -64,16 +73,21 @@ public class DashboardPeminjamController {
         }
     }
 
+    // =====================
+    // FXML COMPONENT
+    // =====================
     @FXML private Label lblTotalPeminjaman;
     @FXML private Label lblDisetujui;
     @FXML private Label lblPending;
     @FXML private Label lblDitolak;
-
     @FXML private VBox aktivitasContainer;
 
+    // =====================
+    // INITIALIZE
+    // =====================
     @FXML
     public void initialize() {
-        User userLogin = UserSession.getUser();
+        userLogin = UserSession.getUser();
 
         if (userLogin == null) {
             System.out.println("ERROR: User belum login");
@@ -83,38 +97,50 @@ public class DashboardPeminjamController {
         loadDashboard(userLogin.getIdUser());
     }
 
-    private void loadDashboard(int idPeminjam) {
+    // =====================
+    // LOAD DASHBOARD
+    // =====================
+    private void loadDashboard(int idUser) {
         Connection conn = DatabaseConnection.getConnection();
         DashboardPeminjamDAO dao = new DashboardPeminjamDAO(conn);
 
+        // ===== CARD DATA =====
         lblTotalPeminjaman.setText(
-                String.valueOf(dao.countAll(idPeminjam))
-        );
-        lblDisetujui.setText(
-                String.valueOf(dao.countByStatus(idPeminjam, "disetujui"))
-        );
-        lblPending.setText(
-                String.valueOf(dao.countByStatus(idPeminjam, "menunggu"))
-        );
-        lblDitolak.setText(
-                String.valueOf(dao.countByStatus(idPeminjam, "ditolak"))
+                String.valueOf(dao.countAllByUser(idUser))
         );
 
+        lblDisetujui.setText(
+                String.valueOf(dao.countByStatusByUser(idUser, "disetujui"))
+        );
+
+        lblPending.setText(
+                String.valueOf(dao.countByStatusByUser(idUser, "menunggu"))
+        );
+
+        lblDitolak.setText(
+                String.valueOf(dao.countByStatusByUser(idUser, "ditolak"))
+        );
+
+        // ===== AKTIVITAS TERBARU =====
         List<String[]> aktivitas =
-                dao.getAktivitasTerbaru(idPeminjam);
+                dao.getAktivitasTerbaruByUser(idUser);
 
         aktivitasContainer.getChildren().clear();
 
         for (String[] data : aktivitas) {
             aktivitasContainer.getChildren().add(
                     createAktivitasItem(
-                            data[0],
-                            data[1], 
-                            data[2]  
+                            data[0], // nama ruangan
+                            data[1], // status
+                            data[2]  // tanggal
                     )
             );
         }
     }
+
+    // =====================
+    // UI ITEM
+    // =====================
     private VBox createAktivitasItem(
             String namaRuangan,
             String status,
