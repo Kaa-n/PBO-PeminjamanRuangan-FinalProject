@@ -1,0 +1,212 @@
+/* =================================================================
+   1. STYLE NAVIGASI (BERANDA, RUANGAN, STATUS, KONTAK, AKUN)
+   ================================================================= */
+ 
+/* Kondisi Normal */
+.nav-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #555555;
+    -fx-background-radius: 16px;
+    -fx-cursor: hand;
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 14px;
+}
+
+/* Kondisi Mouse di atasnya (HOVER) */
+.nav-link:hover {
+    -fx-background-color: #E5E7EB; /* Abu-abu muda */
+    -fx-text-fill: black;
+}
+
+/* Kondisi saat diklik/ditekan (PRESSED) */
+.nav-link:pressed {
+    -fx-background-color: #D1D5DB; /* Abu-abu lebih gelap dikit */
+    -fx-text-fill: black;
+    -fx-scale-x: 0.98; /* Efek tombol mengecil sedikit seolah ditekan */
+    -fx-scale-y: 0.98;
+}
+
+
+/* =================================================================
+   2. STYLE TOMBOL LOGOUT (KELUAR)
+   ================================================================= */
+
+/* Kondisi Normal */
+.btn-logout {
+    -fx-background-color: #E60000; /* Merah */
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 14px;
+}
+
+/* Kondisi Mouse di atasnya (HOVER) */
+.btn-logout:hover {
+    -fx-background-color: #CC0000; /* Merah lebih gelap */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1); /* Ada bayangan sedikit */
+}
+
+/* Kondisi saat diklik/ditekan (PRESSED) */
+.btn-logout:pressed {
+    -fx-background-color: #990000; /* Merah maroon/sangat gelap */
+    -fx-scale-x: 0.98; /* Efek tombol mengecil sedikit seolah ditekan */
+    -fx-scale-y: 0.98;
+}
+
+/*Style setuju ruangan*/
+.btn-setuju {
+    -fx-background-color: #139659; /* Hijau */
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 14px;    
+}
+
+/*Kondisi hovernya*/
+.btn-setuju:hover {
+    -fx-background-color: #0e643c; /* Hijau lebih gelap */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1); /* Ada bayangan sedikit */
+}
+
+/*Kondisi saat diklik*/
+.btn-setuju:pressed {
+    -fx-background-color: #0b3c25; /* Hijau maroon/sangat gelap */
+    -fx-scale-x: 0.98; /* Efek tombol mengecil sedikit seolah ditekan */
+    -fx-scale-y:
+     0.98;
+}
+
+/* =================================================================
+   3. STYLE TOMBOL Kelola Ruangan & Item Kelola Ruangan (Admin)
+   ================================================================= */
+
+.btn-tambah-ruangan {
+    -fx-background-color: #4F4F4F; /* abu-abu */
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+/*Kondisi hovernya*/
+.btn-tambah-ruangan:hover {
+    -fx-background-color: #2F2D2D; /* abu-abu lebih gelap */
+}
+
+/*Kondisi saat diklik*/
+.btn-tambah-ruangan:pressed {
+    -fx-scale-x: 0.97;/* Efek tombol mengecil sedikit seolah ditekan */
+    -fx-scale-y: 0.97;
+}
+
+.btn-hapus {
+    -fx-background-color: #E60000; /* merah */
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.btn-edit {
+    -fx-background-color: #4F4F4F; /* abu-abu */
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+/* ========================
+   4. STYLE TOMBOL Profile
+   ======================== */
+
+.btn-simpan {
+    -fx-background-color: #139659; /* Hijau */
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+}
+.fltxt-form {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dbdbdb;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 14px;
+}
+
+.fltxt-login {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dbdbdb;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 10px;
+}
+
+/* lupa password */
+.hyperlink-lupapassword {
+    -fx-text-fill: #848484; /* Warna biru */
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.hyperlink-lupapassword:hover {
+    -fx-text-fill: #555555; /* Warna biru lebih gelap saat hover */
+}
+.hyperlink-lupapassword:pressed {
+    -fx-text-fill: #333333; /* Warna biru paling gelap saat ditekan */
+}
+
+
+
+
+
+/* --- STYLE DASAR TOMBOL (Default / Tersedia) --- */
+.button-slot {
+    -fx-background-color:  #F3F3F3; /* Abu-abu muda lembut */
+    -fx-text-fill: #1c1c1c;
+    -fx-background-radius: 16px; /* Membuat sudut tumpul (Capsule) */
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER;
+    
+}
+
+/* Efek Hover (Saat mouse di atasnya) */
+.button-slot:hover {
+    -fx-background-color: #E4E6E9;
+}
+
+/* --- JIKA DIPILIH (SELECTED) - HIJAU PASTEL --- */
+.button-slot:selected {
+    -fx-background-color: #D1F2D3; /* Hijau Pastel */ /* Teks Hijau Tua */
+    
+}
+
+/* --- SUDAH DIBOOKING (DISABLED) - MERAH PASTEL --- */
+.button-booked {
+    -fx-background-color: #FAD2D2; /* Merah Pastel *//* Teks Merah Tua */
+    -fx-opacity: 1.0; /* Pastikan tidak transparan */
+}
+
+/* --- MENUNGGU PERSETUJUAN (DISABLED) - KUNING PASTEL --- */
+.button-waiting {
+    -fx-background-color: #FFF9C4; /* Kuning Pastel */ /* Teks Kuning Emas */
+    -fx-opacity: 1.0;
+}
+
+/* --- TOMBOL JAM KHUSUS (BAWAH) --- */
+.button-khusus {
+    -fx-background-color: #555555;
+    -fx-text-fill: white;
+    -fx-background-radius: 16px;
+    -fx-cursor: hand;
+}
