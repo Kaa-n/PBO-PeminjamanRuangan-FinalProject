@@ -2,10 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<<<<<<< HEAD
 <?import javafx.scene.control.ComboBox?>
-=======
->>>>>>> 3c17ac195522fefef753e6a1dd9d7201a95c1c15
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -30,11 +27,7 @@
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-<<<<<<< HEAD
                               <Image url="@../../../../../../../../../../../Downloads/Documents/PBO-PeminjamanRuangan-FinalProject/pbopeminjamanruanganfx/src/main/resources/images/Container%20(2).png" />
-=======
-                              <Image url="@../../images/Container%20(2).png" />
->>>>>>> 3c17ac195522fefef753e6a1dd9d7201a95c1c15
                            </image>
                         </ImageView>
                         <GridPane prefHeight="40.0" prefWidth="262.0">
@@ -142,7 +135,6 @@
                   <ScrollPane fitToWidth="true" prefHeight="662.0" prefWidth="1197.0" VBox.vgrow="ALWAYS">
                      <content>
                         <VBox prefHeight="720.0" prefWidth="1181.0" spacing="12" style="-fx-background-color: white;">
-<<<<<<< HEAD
                            <padding>
                               <Insets bottom="20" left="20" right="20" top="20" />
                            </padding>
@@ -176,52 +168,6 @@
                               </HBox>
                            </children>
                         </VBox>
-=======
-
-    <padding>
-        <Insets bottom="20" left="20" right="20" top="20" />
-    </padding>
-
-    <!-- JUDUL -->
-    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Edit Ruangan" />
-
-    <Separator />
-
-    <!-- NAMA RUANGAN -->
-    <Label text="Nama Ruangan" />
-    <TextField fx:id="txtNamaRuangan" prefWidth="380" promptText="Contoh: Lab Komputer 1 Dekanat" />
-    <!-- KAPASITAS -->
-    <Label text="Kapasitas" />
-    <TextField fx:id="txtKapasitas" prefWidth="380" promptText="Jumlah orang 20 orang" />
-
-    <!-- FASILITAS -->
-    <Label text="Fasilitas" />
-    <TextField fx:id="txtFasilitas" prefWidth="380" promptText="Proyektor, AC, Wifi" />
-
-    <!-- LOKASI -->
-    <Label text="Lokasi" />
-    <TextField fx:id="txtLokasi" prefWidth="380" promptText="Gedung Informatika FMIPAf" />
-   <!-- STATUS -->
-   <Label text="Status" />
-    <TextField fx:id="txtStatus" prefWidth="380" promptText="Aktif / Tidak Aktif" />
-   
-
-    <!-- UPLOAD FOTO (PALING BAWAH) -->
-    <Label text="Foto Ruangan" />
-    <HBox spacing="10">
-        <Button onAction="#btnPilihGambar" prefWidth="120" text="Pilih Gambar" />
-        <Label style="-fx-text-fill: #6B7280;" text="Belum ada file dipilih" />
-    </HBox>
-    <HBox alignment="CENTER" spacing="12">
-
-    <Button onAction="#btnSimpanPerubahan" prefWidth="180" styleClass="btn-animated" text="Simpan Perubahan" />
-
-    <Button onAction="#btnBatal" prefWidth="140" styleClass="btn-cancel" text="Batal" />
-
-</HBox>
-
-</VBox>
->>>>>>> 3c17ac195522fefef753e6a1dd9d7201a95c1c15
                      </content>
                   </ScrollPane>
                </children>
